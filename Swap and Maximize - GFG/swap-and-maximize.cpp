@@ -28,15 +28,14 @@ long long int maxSum(int a[], int n)
     while(i<j)
     {
         // cout<<a[j]<<" "<<a[i]<<" "<<a[i+1]<<endl;
-        sum+=(a[j]-a[i]);
-        sum+=(a[j]-a[i+1]);
+        sum+=(a[j]-a[i++]);
+        sum+=(a[j--]-a[i]);
         // if(i==j||i+1==j)
         // {
         //     sum+=(a[j]-a[0]);
         //     break;
         // }
-        i++;
-        j--;
+        // j--;
     }
     sum+=(a[i]-a[0]);
     return sum;
