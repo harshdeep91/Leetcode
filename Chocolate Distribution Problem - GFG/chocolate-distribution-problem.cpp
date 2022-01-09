@@ -7,9 +7,7 @@ class Solution{
     public:
     long long findMinDiff(vector<long long> a, long long n, long long m){
         sort(a.begin(),a.end());
-        long long i=0,j=0,sum=INT_MAX;
-        while(j<m-1)
-        j++;
+        long long i=0,j=m-1,sum=INT_MAX;
         while(j<n)
             sum=min(a[j++]-a[i++],sum);
             return sum;
