@@ -23,19 +23,11 @@ int main()
 long long int maxSum(int a[], int n)
 {
     sort(a,a+n);
-    int i=0,j=n-1;
-    long long int sum=0;
+    long long int sum=0,i=0,j=n-1;
     while(i<j)
     {
-        // cout<<a[j]<<" "<<a[i]<<" "<<a[i+1]<<endl;
         sum+=(a[j]-a[i++]);
         sum+=(a[j--]-a[i]);
-        // if(i==j||i+1==j)
-        // {
-        //     sum+=(a[j]-a[0]);
-        //     break;
-        // }
-        // j--;
     }
     sum+=(a[i]-a[0]);
     return sum;
