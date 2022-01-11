@@ -18,7 +18,7 @@ public:
            low = mid + 1;
             else high = mid;
         }
-        return arr[low]==k?low:-1;
+        return arr[high]==k?low:-1;
     }
 };
 
