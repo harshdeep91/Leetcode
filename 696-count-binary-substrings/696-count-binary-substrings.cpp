@@ -33,7 +33,6 @@ public:
                     count++;
                 }
             }
-            // cout<<s[i]<<"--"<<count0<<" "<<count1<<" "<<count<<" "<<zero<<endl;
             i++;
         }
         return count;
