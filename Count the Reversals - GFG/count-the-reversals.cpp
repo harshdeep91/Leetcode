@@ -16,58 +16,24 @@ int main()
 // Contributed By: Pranay Bansal// } Driver Code Ends
 
 
-string solve(string &s)
-{
-    stack<char> st;
-      for(int i=0;i<s.size();i++)
-      {
-               if(!st.empty()&&s[i]=='}'&&st.top()=='{')
-               st.pop();
-               else
-               st.push(s[i]);
-      }
-      string ans;
-      while(!st.empty())
-      {
-          ans+=st.top();
-          st.pop();
-      }
-      reverse(ans.begin(),ans.end());
-      return ans;
-}
 int countRev (string s)
 {
-     s=solve(s);
-     if(s.size()&1)
-     return -1;
-     int ans=s.size()/2,count=0;
-     stack<char> st;
-    //   cout<<s<<endl;
-     for(int i=0;i<s.size();i++)
-     {
-               if(!st.empty()&&s[i]=='}'&&st.top()=='{')
-                    st.pop();
-               else 
-                {
-                    if(s[i]=='}')
-                        {
-                            count++;
-                           st.push('{');
-                        }
-                     else
-                     {
-                         if(!st.empty()&&st.top()=='{')
-                          {
-                              count++;
-                              st.pop();
-                          }
-                          else
-                          {
-                              st.push('{');
-                          }
-                           
-                     }
-                }
-     }
-    return count;
+     int temp=0, res=0, n=s.size();
+   if(n%2!=0)
+           return -1;
+   for(int i=0;i<n;i++){
+       if(s[i]=='{')
+           temp++;
+       else{
+            if(temp==0){
+                res++;
+                temp++;
+           }
+           else
+               temp--;
+       }
+   }
+   if(temp>0)
+       res += temp/2;
+   return res;
 }
