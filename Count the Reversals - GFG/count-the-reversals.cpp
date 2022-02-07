@@ -56,7 +56,7 @@ int countRev (string s)
                         }
                      else
                      {
-                         if(i>=ans&&!st.empty()&&st.top()=='{')
+                         if(!st.empty()&&st.top()=='{')
                           {
                               count++;
                               st.pop();
