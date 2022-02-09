@@ -20,12 +20,7 @@ public:
                      left++;
              }
              else
-             {
-                 if(left>0)
-                   left--;
-                   else
-                   count++;
-             }
+             left>0?left--:count++;
          }
          return ans;
     }
