@@ -1,5 +1,5 @@
 # Minimum Swaps for Bracket Balancing
-## Easy 
+##  Easy 
 <div class="problem-statement">
                 <p></p><p><span style="font-size:18px">You are given a string S of 2N characters consisting of N ‘[‘ brackets and N ‘]’ brackets. A string is considered balanced if it can be represented in the for S2[S1] where S1 and S2 are balanced strings. We can make an unbalanced string balanced by swapping <strong>adjacent</strong> characters. Calculate the minimum number of swaps necessary to make a string balanced.<br>
 Note - Strings S1 and S2 can be empty.</span></p>
