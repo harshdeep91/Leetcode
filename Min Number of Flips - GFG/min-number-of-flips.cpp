@@ -19,23 +19,13 @@ int32_t main()
 
 int minFlips (string S)
 {
-    bool flag=0;
-    int ans0=0,ans1=1;
+    int ans0=0,ans1=0;
     for(int i=0;i<S.size();i++)
     {
         //ans0 odd place =1
         //ans1 odd place=0
-        if(i&1&&S[i]!='1')//odd means 0
+        if((i&1&&S[i]!='1')||(!(i&1)&&S[i]!='0'))//odd means 0
         ans0++;
-        else if(!(i&1)&&S[i]!='0')
-        ans0++;
-        // {
-        //     S[i]=='0'?ans1:ans0++;
-        // }
-        // else
-        // {
-        //     S[i]=='1'?ans1:ans0++;
-        // }
     }
     ans1=S.size()-ans0;
     // cout<<ans1<<" "<<ans0<<endl;
