@@ -11,19 +11,19 @@ class Solution
     //of all the characters of string p.
     string smallestWindow (string s, string p)
     {
-        int i=0,j=0,pm[26]={0},count=0,st=0,e=s.size();
+        int i=0,j=0,pm[256]={0},count=0,st=0,e=s.size();
         while(i<p.size())
         {
-            pm[p[i]-'a']++;
-            if(pm[p[i]-'a']==1)
+            pm[p[i]]++;
+            if(pm[p[i]]==1)
             count++;
             i++;
         }
         i=0;
         while(j<s.size())
         {
-            pm[s[j]-'a']--;
-            if(pm[s[j]-'a']==0)
+            pm[s[j]]--;
+            if(pm[s[j]]==0)
             count--;
             while(count==0&&i<=j)
             {
@@ -32,8 +32,8 @@ class Solution
                     e=j;
                     st=i;
                 }
-                pm[s[i]-'a']++;
-                if(pm[s[i]-'a']==1)
+                pm[s[i]]++;
+                if(pm[s[i]]==1)
                 count++;
                 i++;
             }
