@@ -1,5 +1,5 @@
 # IPL 2021 - Match Day 2
-## Medium 
+##  Medium 
 <div class="problem-statement">
                 <p></p><p><span style="font-size:18px">Due to the rise of covid-19 cases in India, this year BCCI decided to organize knock-out matches in IPL rather than a league. </span></p>
 
