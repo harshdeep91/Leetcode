@@ -7,14 +7,17 @@ class Solution
 {
     public:
     //Function to find distance of nearest 1 in the grid for each cell.
-     bool check(int r,int c,vector<vector<int>>& grid,vector<vector<bool>>& vis)
+   
+    void solve(int r,int c,vector<vector<int>>& grid,vector<vector<bool>>& vis,queue<pair<int,int>> &q)
     {
         if(r>=0&&c>=0&&r<grid.size()&&c<grid[0].size()&&grid[r][c]==0&&vis[r][c]==false)
-        return 1;
-        return 0;
+           {
+                    vis[r][c]=1;
+                    grid[r][c]=grid[q.front().first][q.front().second]+1;
+                    q.push({r,c});
+           }
     }
     vector<vector<int>>nearest(vector<vector<int>>& grid) {
-        // Code here
         queue<pair<int,int>> q;
         vector<vector<bool>> vis(grid.size(),(vector<bool>(grid[0].size(),0)));
         for(int i=0;i<grid.size();i++)
@@ -37,31 +40,11 @@ class Solution
             {
                 int r=q.front().first;
                 int c=q.front().second;
+                 solve(r,c+1,grid,vis,q);
+                 solve(r+1,c,grid,vis,q);
+                 solve(r,c-1,grid,vis,q);
+                 solve(r-1,c,grid,vis,q);   
                  q.pop();
-                    if(check(r,c+1,grid,vis))//right
-                {
-                    vis[r][c+1]=1;
-                    grid[r][c+1]=grid[r][c]+1;
-                    q.push({r,c+1});
-                }
-                    if(check(r+1,c,grid,vis))//down
-                {
-                    vis[r+1][c]=1;
-                    grid[r+1][c]=grid[r][c]+1;
-                    q.push({r+1,c});
-                }
-                    if(check(r,c-1,grid,vis))//left
-                {
-                    vis[r][c-1]=1;
-                    grid[r][c-1]=grid[r][c]+1;
-                    q.push({r,c-1});
-                }
-                   if(check(r-1,c,grid,vis))//up
-                {
-                    vis[r-1][c]=1;
-                    grid[r-1][c]=grid[r][c]+1;
-                    q.push({r-1,c});
-                }
             }
         }
         return grid;
