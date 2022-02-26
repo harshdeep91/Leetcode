@@ -128,9 +128,9 @@ Node* postorder(Node *root,int &n1,int &n2,Node *&low)
 }
 Node* LCA(Node *root, int n1, int n2)
 {
-    Node *low=0,*p1=0,*p2=0;
+    Node *low=0;
     postorder(root,n1,n2,low);
-    return low?low:root;
+    return low;
 }
 
 
