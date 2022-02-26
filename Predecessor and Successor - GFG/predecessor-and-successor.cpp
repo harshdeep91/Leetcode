@@ -113,10 +113,7 @@ void findPreSuc(Node* root, Node*& pre, Node*& suc, int key)
     {
         findPreSuc(root->left,pre,suc,key);
         if(root->key<key)
-        {
-            if(!pre||pre->key<root->key)
             pre=root;
-        }
         else if(root->key>key)
         {
             if(!suc||suc->key>root->key)
