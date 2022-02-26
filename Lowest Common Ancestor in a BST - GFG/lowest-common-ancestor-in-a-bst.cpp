@@ -106,31 +106,18 @@ Node* postorder(Node *root,int &n1,int &n2,Node *&low)
     {
         Node* one=postorder(root->left,n1,n2,low);
         Node* two=postorder(root->right,n1,n2,low);
-            if(low)
-            return low;
-           if(root->data==n1||root->data==n2)
-            {
-               if(one||two)
-               low=root;
+           if(root->data==n1||root->data==n2||one&&two)
                return root;
-            }
-            if(one&&two)
-            {
-                low=root;
-                return root;
-            }
-            if(one)
-            return one;
-            else if(two)
-            return two;
+            if(one||two)
+            return one?one:two;
     }
     return 0;
 }
 Node* LCA(Node *root, int n1, int n2)
 {
     Node *low=0;
-    postorder(root,n1,n2,low);
-    return low;
+    return postorder(root,n1,n2,low);
+    // return low;
 }
 
 
