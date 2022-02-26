@@ -100,24 +100,18 @@ int main()
 
 
 //Function to find the lowest common ancestor in a BST. 
-Node* postorder(Node *root,int &n1,int &n2,Node *&low)
+Node* LCA(Node *root, int n1, int n2)
 {
     if(root)
     {
-        Node* one=postorder(root->left,n1,n2,low);
-        Node* two=postorder(root->right,n1,n2,low);
+        Node* one=LCA(root->left,n1,n2);
+        Node* two=LCA(root->right,n1,n2);
            if(root->data==n1||root->data==n2||one&&two)
                return root;
             if(one||two)
             return one?one:two;
     }
     return 0;
-}
-Node* LCA(Node *root, int n1, int n2)
-{
-    Node *low=0;
-    return postorder(root,n1,n2,low);
-    // return low;
 }
 
 
