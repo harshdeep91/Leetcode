@@ -97,23 +97,25 @@ struct Node {
 class Solution
 {
     public:
-    void inorder(Node *root,int &K,int &ans)
+    int k,ans;
+    void inorder(Node *root)
     {
-        if(root&&K)
+        if(root&&k)
         {
-            inorder(root->right,K,ans);
-            K--;
-            if(K==0)
+            inorder(root->right);
+            k--;
+            if(k==0)
             {
                 ans=root->data;
             }
-            inorder(root->left,K,ans);
+            inorder(root->left);
         }
     }
     int kthLargest(Node *root, int K)
     {
-        int ans=0;
-        inorder(root,K,ans);
+        k=K;
+        ans=0;
+        inorder(root);
         return ans;
     }
 };
