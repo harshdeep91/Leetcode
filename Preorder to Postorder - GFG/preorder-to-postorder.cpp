@@ -151,24 +151,18 @@ int main()
 
 //User function template in C++
 //Function that constructs BST from its preorder traversal.
-Node* insert2(Node *p, int x)
-{
-    if (p)
-    {
-        if (p->data > x)
-            p->left = insert2(p->left, x);
-        else
-            p->right = insert2(p->right, x);
-    }
-    else
-        p = newNode(x);
-    return p;
+Node * treemaker(int * pre,int size, int& idx, int minR, int maxR){
+    if(idx==size || pre[idx]<minR || pre[idx]>maxR)
+    return NULL;
+    int curr=pre[idx++];
+    Node * root=newNode(curr);
+    root->left=treemaker(pre, size, idx, minR, curr);
+    root->right=treemaker(pre, size, idx, curr, maxR);
+    return root;
 }
-Node* post_order (int pre[], int n)
+
+Node* post_order(int pre[], int size)
 {
-    
-    Node* first=0;
-    for (int i = 0; i < n; i++)
-        first = insert2(first, pre[i]);
-    return first;
+    int idx=0;
+    return treemaker(pre, size, idx, INT_MIN, INT_MAX);
 }
