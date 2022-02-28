@@ -1,5 +1,5 @@
 # Preorder to Postorder
-##  Medium 
+## Medium 
 <div class="problem-statement">
                 <p></p><p><span style="font-size:18px">Given an array arr[] of N nodes representing preorder traversal of BST. The task is to print its postorder traversal.<br>
 In Pre-Order traversal,&nbsp;<strong>the root node is visited before the left child and right child nodes</strong>.<br>
