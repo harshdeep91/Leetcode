@@ -32,9 +32,7 @@ class Solution{
                             int x=arr[i]+arr[j]+arr[f]+arr[s];
                             if(x==k)
                             {
-                                if(i>s+1&&j<arr.size()-1&&arr[i-1]!=arr[i]&&arr[j+1]!=arr[j])
-                                v.push_back({arr[f],arr[s],arr[i],arr[j]});
-                                else if(i==s+1||j==arr.size()-1)
+                                if(i==s+1||j==arr.size()-1||(i>s+1&&j<arr.size()-1&&arr[i-1]!=arr[i]&&arr[j+1]!=arr[j]))
                                 v.push_back({arr[f],arr[s],arr[i],arr[j]});
                                 i++;
                                 j--;
