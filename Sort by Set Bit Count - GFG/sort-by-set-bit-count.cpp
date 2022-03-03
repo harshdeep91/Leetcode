@@ -13,27 +13,31 @@ class Solution{
         int count=0,j=1,k;
         while(x)
         {
-            count+=x&1;
+            count+=x&1?1:0;
             x/=2;
         }
         return count;
     }
     static bool cmp(pair<int,int> A,pair<int,int> B)
     {
-        return A.second > B.second;
+        if(A.first>B.first )
+        return 1;
+        return 0;
     }
     void sortBySetBitCount(int arr[], int n)
     {
-         vector<pair<int,int>>ans;
-        for(int i = 0;i<n;i++)
+        int count;
+        vector<pair<int,int>> a;
+        for(int i=0;i<n;i++)
         {
-            int x =setbit(arr[i]);
-            ans.push_back({arr[i],x});
+            count=setbit(arr[i]);
+            a.push_back({count,arr[i]});
         }
-        stable_sort(ans.begin(),ans.end(),cmp);
-        for(int i = 0;i<n;i++)
+        stable_sort(a.begin(),a.end(),cmp);
+        for(int i=0;i<n;i++)
         {
-            arr[i] = ans[i].first;
+            // cout<<a[i].first<<" "<<a[i].second<<endl;
+            arr[i]=a[i].second;
         }
     }
 };
