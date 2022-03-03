@@ -8,38 +8,20 @@ using namespace std;
   
 class Solution{
     public:
-  int setbit(int x)
+   static int cmp(int a,int b)
     {
-        int count=0,j=1,k;
-        while(x)
-        {
-            count+=x&1?1:0;
-            x/=2;
-        }
-        return count;
-    }
-    static bool cmp(pair<int,int> A,pair<int,int> B)
-    {
-        if(A.first>B.first )
-        return 1;
-        return 0;
-    }
+        int count1 = __builtin_popcount(a);
+        int count2 = __builtin_popcount(b);
+    ]
+        if (count1 <= count2)
+            return false;
+        return true;
+    }]
     void sortBySetBitCount(int arr[], int n)
     {
-        int count;
-        vector<pair<int,int>> a;
-        for(int i=0;i<n;i++)
-        {
-            count=setbit(arr[i]);
-            a.push_back({count,arr[i]});
-        }
-        stable_sort(a.begin(),a.end(),cmp);
-        for(int i=0;i<n;i++)
-        {
-            // cout<<a[i].first<<" "<<a[i].second<<endl;
-            arr[i]=a[i].second;
-        }
+        stable_sort(arr, arr+n, cmp);
     }
+    
 };
 
 // { Driver Code Starts.
