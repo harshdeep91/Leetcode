@@ -8,26 +8,26 @@ using namespace std;
   
 class Solution{
     public:
-    int CountSetBits(int n)
+  int setbit(int x)
     {
-        int cnt = 0;
-        while(n)
+        int count=0,j=1,k;
+        while(x)
         {
-            n = n & (n-1);
-            cnt++;
+            count+=x&1;
+            x/=2;
         }
-        return cnt;
+        return count;
     }
-    static bool cmp(pair<int,int>a,pair<int,int>b)
+    static bool cmp(pair<int,int> A,pair<int,int> B)
     {
-       return a.second > b.second;
+        return A.second > B.second;
     }
     void sortBySetBitCount(int arr[], int n)
     {
-        vector<pair<int,int>>ans;
+         vector<pair<int,int>>ans;
         for(int i = 0;i<n;i++)
         {
-            int x = CountSetBits(arr[i]);
+            int x =setbit(arr[i]);
             ans.push_back({arr[i],x});
         }
         stable_sort(ans.begin(),ans.end(),cmp);
@@ -37,6 +37,7 @@ class Solution{
         }
     }
 };
+
 // { Driver Code Starts.
 
 int main()
