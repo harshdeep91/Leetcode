@@ -1,5 +1,5 @@
 # Sort by Set Bit Count
-## Easy 
+##  Easy 
 <div class="problem-statement">
                 <p></p><p><span style="font-size:18px">Given an array of integers, sort the array (in descending order) according to count of set bits in binary representation of array elements.&nbsp; </span></p>
 
