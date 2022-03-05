@@ -14,13 +14,13 @@ class Solution
     //Function to find minimum number of pages.
     int findPages(int A[], int N, int M) 
     {
-        int l=A[0],h=0,count,m,sum;
+        int l=A[0],h=0,count,m,sum,res;
         for(int i=0;i<N;i++)
         {
             l=max(l,A[i]);
             h+=A[i];
         }
-        while(l<h)
+        while(l<=h)
         {
             sum=0;
             count=0;
@@ -39,11 +39,14 @@ class Solution
                 }
             }
             if(count<=M)
-            h=m;
+            {
+                res=m;
+                h=m-1;
+            }
             else
             l=m+1;
         }
-       return h;
+       return res;
     }
 };
 
