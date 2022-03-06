@@ -6,23 +6,27 @@ using namespace std;
 class Solution {
   public:
     long long int count(int S[], int m, int n) {
-        long long int dp[m+1][n+1];
+        long long int dp[2][n+1];
+        bool flag=1;
         for(int i=0;i<=m;i++)
         {
+            flag=!flag;
             for(int j=0;j<=n;j++)
             {
                 
                 if(j==0)
-                dp[i][j]=1;
+                dp[flag][j]=1;
                 else if(i==0)
-                dp[i][j]=0;
+                dp[flag][j]=0;
                 else if(S[i-1]<=j)
-                dp[i][j]=dp[i][j-S[i-1]]+dp[i-1][j];
+                dp[flag][j]=dp[flag][j-S[i-1]]+dp[!flag][j];
                 else
-                dp[i][j]=dp[i-1][j];
+                dp[flag][j]=dp[!flag][j];
+                // cout<<dp[flag][j]<<" ";
             }
+            // cout<<endl;
         }
-        return dp[m][n];
+        return dp[flag][n];
     }
 };
 
