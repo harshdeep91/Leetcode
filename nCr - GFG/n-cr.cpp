@@ -9,7 +9,6 @@ using namespace std;
 
 class Solution{
 public:
-    int mod=pow(10,9)+7;
     int nCr(int n, int r){
         // n-1Cr-1+n-1Cr=nCr;
         // cout<<n<<" "<<r<<endl;
@@ -20,25 +19,18 @@ public:
         // return (nCr(n-1,r-1)+nCr(n-1,r)+mod)%mod;
         
         
-          int dp[2][r+1];
-        bool flag=1;
-        for(int i=0;i<=n;i++)
-        {
-            flag=!flag;
-            for(int j=0;j<=r;j++)
-            {
-                
-                if(j==0||i==0||i==j)
-                dp[flag][j]=1;
-                else if(i>j)
-                dp[flag][j]=(dp[!flag][j-1]+(dp[!flag][j]+mod)%mod)%mod;
-                else
-                dp[flag][j]=0;
-                // cout<<dp[flag][j]<<" ";
-            }
-            // cout<<endl;
-        }
-        return dp[flag][r];
+           int mod = 1000000007;
+        int C[r+1];
+        memset(C, 0, sizeof(C));
+        
+        C[0] = 1;
+    	for (int i = 1; i <= n; i++) { 
+    		for (int j = min(i, r); j > 0; j--){ 
+                // nCj = (n-1)Cj + (n-1)C(j-1); 
+    			C[j] = (C[j] + C[j-1])%mod;
+    		}
+    	} 
+    	return C[r]%mod;
     }
 };
 
