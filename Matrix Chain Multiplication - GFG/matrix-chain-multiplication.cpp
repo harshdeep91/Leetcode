@@ -11,11 +11,10 @@ class Solution{
 public:
     int matrixMultiplication(int N, int arr[])
     {
-        int dp[N][N];
+        int dp[N][N],k;
         for(int g=1;g<N;g++)
         {
-            int i=0,k;
-            for(int j=g;j<N;i++,j++)
+            for(int j=g,i=0;j<N;i++,j++)
             {
                  if(g==1)
                  dp[i][j]=0;
@@ -23,15 +22,11 @@ public:
                  dp[i][j]=arr[i]*arr[j-1]*arr[j];
                  else
                  {
-                     k=i+1;
+                     k=i;
                      dp[i][j]=INT_MAX;
-                     while(k<j)
-                     {
+                     while(++k<j)
                          dp[i][j]=min(dp[i][j],(dp[i][k]+dp[k][j]+arr[i]*arr[k]*arr[j]));
-                         k++;
-                     }
                  }
-                //  cout<<i<<" "<<j<<" "<<dp[i][j]<<endl;
             }
         }
         return dp[0][N-1];
