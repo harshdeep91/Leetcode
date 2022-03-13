@@ -14,19 +14,35 @@ using namespace std;
 class Solution
 {
 public:
-    int wordBreak(string s, vector<string>& wordDict) {
-         vector<bool> dp(s.size()+1, false);
-        unordered_set<string> m;
-        for(auto x:wordDict)
-            m.insert(x);
-        dp[0] = true;
-        for (int i = 1; i <= s.size(); i++)
-            for (int j = 0; j < i; j++)
-                if (dp[j] && m.find(s.substr(j, i-j))!=m.end()) {
-                    dp[i] = true;
-                    break;
-                }
-        return dp.back();
+        unordered_set<string> s;
+        bool solve(string A,vector<string> &B)
+        {
+            // cout<<A.size()<<endl;
+            if(A.size()==0)
+            {
+                return 1;
+            }
+            string l,r;
+            int i=0;
+            while(i<A.size())
+            {
+                i++;
+                l=A.substr(0,i);
+                r=A.substr(i,A.size()-i);
+                // cout<<l<<" "<<r<<endl;
+                if(s.find(l)!=s.end()&&solve(r,B))
+                return 1;
+            }
+            return 0;
+        }
+    int wordBreak(string A, vector<string> &B) {
+        //code here]
+        s.clear();
+        for(auto x:B)
+        s.insert(x);
+        // for(auto b:s)
+        // cout<<b<<" ";
+        return solve(A,B);
     }
 };
 
