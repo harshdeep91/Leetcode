@@ -13,9 +13,9 @@ class Solution {
         vis[0]=1;
         while(!q.empty())
         {
-            int size=q.size();
-            while(size--)
-            {
+            // int size=q.size();
+            // while(size--)
+            // {
                int i=q.front();
                q.pop();
                ans.push_back(i);
@@ -27,7 +27,7 @@ class Solution {
                        q.push(x);
                    }
                }
-            }
+            // }
             
         }
         return ans;
