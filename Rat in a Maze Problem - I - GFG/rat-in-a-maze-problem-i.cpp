@@ -13,23 +13,16 @@ class Solution{
     vector<vector<int>> mat;
     vector<string> ans;
     int N;
-    static bool check(int &i,int &j)
-    {
-        
-        return true;
-        return false;
-    }
     void solve(int i,int j,string s)
     {
         if(i==N-1&&j==N-1&&mat[i][j])
         {
             ans.push_back(s);
-            return ;
+            return;
         }
         if(i>=0&&i<N&&j>=0&&j<N&&mat[i][j]==1)
         {
             mat[i][j]=0;
-           
            solve(i-1,j,s+"U");
            solve(i+1,j,s+"D");
            solve(i,j-1,s+"L");
@@ -39,16 +32,9 @@ class Solution{
         
     }
     vector<string> findPath(vector<vector<int>> &m, int n) {
-        mat.clear();
         mat=m;
         ans.clear();
         N=n;
-        // for(int i=0;i<mat.size();i++)
-        // {
-        //     for(int j=0;j<mat[0].size();j++)
-        //     cout<<mat[i][j]<<" ";
-        //     cout<<endl;
-        // }
         solve(0,0,"");
         return ans;
     }
