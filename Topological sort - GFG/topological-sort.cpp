@@ -10,17 +10,13 @@ class Solution
 	vector<int> topoSort(int V, vector<int> adj[]) 
 	{
 	     vector<int> v,in(V,0);
-	     unordered_map<int,bool> m;
 	     for(int i=0;i<V;i++)
 	         for(auto x:adj[i])
 	             in[x]++;
 	     queue<int> q;        
          for(int i=0;i<V;i++)
             if(in[i]==0)
-                {
                     q.push(i);
-                    m[i]=1;
-                }
              while(!q.empty())
              {
                  int i=q.front();
@@ -29,11 +25,10 @@ class Solution
                  for(auto x:adj[i])
                  {
                      if(in[x])
-                     in[x]--;
-                     if(in[x]==0&&!m[x])
                      {
+                         in[x]--;
+                        if(in[x]==0)
                          q.push(x);
-                          m[x]=1;
                      }
                  }
              }
