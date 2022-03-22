@@ -18,16 +18,13 @@ class Solution
         while(!q.empty())
         {
             int i=q.top().second;
-            int pcost=q.top().first;
             q.pop();
                 for(auto x:adj[i])
-                {
                     if(!vis[x[0]]&&cost[x[0]]>x[1])
                     {
                         cost[x[0]]=x[1];
                         q.push({cost[x[0]],x[0]});
                     }
-                }
             vis[i]=1;
         }
         int sum=0;
