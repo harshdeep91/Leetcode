@@ -13,35 +13,30 @@ class Solution
 	{
 	    vis[i]=1;
 	    for(auto x:adj[i])
-	    {
 	        if(!vis[x])
 	        dfs(x,vis,s,adj);
-	    }
 	    s.push(i);
 	}
-	void dfs2(int i,vector<bool> &inset,vector<bool> &vis,vector<int> adj[])
+	void dfs2(int i,vector<bool> &vis,vector<int> adj[])
 	{
 	    vis[i]=1;
 	    for(auto x:adj[i])
-	    {
 	        if(!vis[x])
-	        dfs2(x,inset,vis,adj);
-	       // else if(vis[x]&&inset[x])
-	    }
-	   // s.push(i);
+	        dfs2(x,vis,adj);
 	}
     int kosaraju(int V, vector<int> adj[])
     {
         vector<bool> vis(V,0) ,vis2(V,0);
         vector<int> adj2[V];
         stack<int> s;
-        for(int i=0;i<V;i++)
-        if(!vis[i])
-        dfs(i,vis,s,adj);
-        for(int i=0;i<V;i++)
-            for(auto x:adj[i])
-                adj2[x].push_back(i);
         int count=0;
+            for(int i=0;i<V;i++)
+                if(!vis[i])
+                     dfs(i,vis,s,adj);
+            for(int i=0;i<V;i++)
+                for(auto x:adj[i])
+                    adj2[x].push_back(i);
+       
         while(!s.empty())
         {
             int i=s.top();
@@ -49,12 +44,9 @@ class Solution
             if(!vis2[i])
             {
                 count++;
-                dfs2(i,vis,vis2,adj2);
+                dfs2(i,vis2,adj2);
             }
         }
-        
-        // for(auto x:vis)
-        // cout<<x<<" ";
         return count;
     }
 };
