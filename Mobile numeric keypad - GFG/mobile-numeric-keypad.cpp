@@ -5,52 +5,48 @@ using namespace std;
  // } Driver Code Ends
 
 
-long long int dp[10][26];
-
-int mat[4][3] = {{1,2,3},
-                 {4,5,6},
-                 {7,8,9},
-                 {-1,0,-1}};
 class Solution{
 public:
-bool isValid(int x,int y){
-    if(x < 0 || x >= 4 || y < 0 || y >= 3) return (false);
-    if(mat[x][y] == -1) return (false);
-    return (true);
+
+long long dp[10][1005];
+int matrix[4][3] = {
+{1,2,3},
+{4,5,6},
+{7,8,9},
+{-1,0,-1}
+};
+
+long long solve(int i, int j, int n)
+{
+if(n == 1) return 1;
+int v = matrix[i][j];
+if(dp[v][n] != -1) return dp[v][n];
+
+long long a = solve(i, j, n-1); // take number itself
+long long b, c, d, e;
+b = c = d = e = 0;
+
+if(j >= 1 && matrix[i][j-1] != -1) b = solve(i, j-1, n-1); // left movement possible
+if(j < 2 && matrix[i][j+1] != -1) c = solve(i, j+1, n-1); // right movement possible
+if(i >= 1 && matrix[i-1][j] != -1) d = solve(i-1, j, n-1); // down movement possible
+if(i < 3 && matrix[i+1][j] != -1) e = solve(i+1, j, n-1); // up movement possible
+
+return dp[v][n] = a+b+c+d+e;
 }
 
-long long int helper(int x,int y,int n){
-    if(n == 1) return (1);
-    if(dp[mat[x][y]][n] != -1) return dp[mat[x][y]][n];
-    
-    int dx[] = {0,-1,0,1,0};
-    int dy[] = {0,0,1,0,-1};
-    
-    long long int cnt = 0;
-    for(int i = 0; i < 5; i++){
-        int nx = x + dx[i];
-        int ny = y + dy[i];
-        if(isValid(nx,ny)){
-            cnt += helper(nx,ny,n-1);
-        }
-    }
-    
-    return (dp[mat[x][y]][n] = cnt);
-}
+long long getCount(int N)
+{
+dp[10][N+1];
+memset(dp, -1, sizeof(dp));
 
-long long getCount(int N){
- dp[10][N+1];
- memset(dp,-1,sizeof(dp));
- long long int ans = 0;
- for(int i = 0; i < 4; i++){
-     for(int j = 0; j < 3; j++){
-         if(mat[i][j] != -1)
-             ans += helper(i,j,N);
-     }
- }
- return (ans);
-}
+long long ans = 0;
+for(int i = 0; i < 4; i++)
+for(int j = 0; j < 3; j++)
+if(matrix[i][j] != -1) // not * and #
+ans += solve(i, j, N);
 
+return ans;
+}
 };
 
 // { Driver Code Starts.
