@@ -95,22 +95,24 @@ class Solution {
   public:
     // Function to return the diameter of a Binary Tree.
     int mx;
-    int height(struct Node* node)
-   {
-     if(node)
-     {
-         int x=height(node->left);
-         int y=height(node->right);
+    int solve(Node* node)
+    {
+         if(node)
+       {
+         int x=solve(node->left);
+         int y=solve(node->right);
            mx=max(mx,x+y+1);
-         return x>y?x+1:y+1;
-     }
+        //   cout<<node->data<<" "<<x<<" "<<y<<" "<<mx<<endl;
+          return x>y?x+1:y+1;
+       }
      return 0;
-   }
-    int diameter(Node* root) {
-        mx=0;
-        height(root);
-        return mx;
     }
+    int diameter(struct Node* node)
+   {
+       mx=0;
+       solve(node);
+       return mx;
+   }
 };
 
 // { Driver Code Starts.
