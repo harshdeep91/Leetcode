@@ -34,7 +34,6 @@ public:
             }
             while(j<n)
             {
-                // cout<<" "<<j<<endl;
                 if(ver2[j]!='.')
                 {
                     t*=10;
@@ -42,7 +41,6 @@ public:
                 }
                 j++;
             }
-        // cout<<s<<" "<<t<<endl;
              if(s!=t)
                  return s?1:-1;
         return 0;
