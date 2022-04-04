@@ -10,7 +10,7 @@
  * };
  */
 class BSTIterator {
-    vector<TreeNode*> v;
+    vector<int> v;
     int point=-1;
 public:
     void inorder(TreeNode* root)
@@ -18,7 +18,7 @@ public:
         if(root)
         {
             inorder(root->left);
-            v.push_back(root);
+            v.push_back(root->val);
             inorder(root->right);
         }
     }
@@ -27,12 +27,10 @@ public:
     }
     
     int next() {
-            return v[++point]->val;
+            return v[++point];
     }
     
     bool hasNext() {
-        // if(point<v.size())
-        // cout<<v[point]->val<<endl;
             return point+1<v.size();
     }
 };
