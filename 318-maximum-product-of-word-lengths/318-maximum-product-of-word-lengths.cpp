@@ -1,31 +1,27 @@
 class Solution {
 public:
     int maxProduct(vector<string>& words) {
-        sort(words.begin(),words.end());
-        for(int i=0;i<words.size();i++)
-            sort(words[i].begin(),words[i].end());
-        int mx=0;
-        for(int i=0;i<words.size();i++)
-        {
-            for(int j=i+1;j<words.size();j++)
-            {
-                int k=0, t=0;
-                while(k<words[i].size()&&t<words[j].size())
-                {
-                    if(words[i][k]==words[j][t])
-                        break;
-                    else if(words[i][k]<words[j][t])
-                        k++;
-                    else
-                        t++;
-                }
-                if(k==words[i].size()||t==words[j].size())
-                {
-                    t=words[i].size()*words[j].size();
-                    mx=max(mx,t);
-                }   
+         int n = words.size();
+        int cnt[n];
+        memset(cnt, 0, sizeof(cnt));
+        
+        for (int i=0; i<words.size(); i++) {
+            for(char ch: words[i]) {
+                cnt[i] = cnt[i] | (1<< (ch-'a'));
             }
         }
-        return mx;
+        
+        int max_len = 0;
+        for (int i=0; i<n; i++) {
+            for (int j=i+1; j<n; j++) {
+                if (cnt[i] & cnt[j])
+                    continue;
+                int tmp = words[i].size() * words[j].size();
+                
+                if(max_len < tmp) max_len = tmp;
+            
+            }
+        }
+        return max_len;
     }
 };
