@@ -1,58 +1,24 @@
 class Solution {
 public:
     string addBinary(string a, string b) {
-        if(a.size()>b.size())
-            return addBinary(b,a);
-        if(a.size()<b.size())
-        {
-            reverse(a.begin(),a.end());
-            while(a.size()<b.size())
-                a.push_back('0');
-            reverse(a.begin(),a.end());
-        }
-            
-        int i=a.size()-1,carry=0;
+        int i = a.length()-1;
+        int j = b.length()-1;
         string ans;
-        // cout<<a<<" "<<b<<endl;
-        while(i>=0)
-        {
-            // cout<<carry<<" ";
-            if(a[i]=='1'&&b[i]=='1')
-            {
-                if(carry)
-                ans.push_back('1');
-                else
-                {
-                    ans.push_back('0');
-                    carry=1;
-                }
+        int carry = 0;
+        
+        while(i>=0 || j>=0 || carry){
+            if(i>=0){
+                carry += a[i] - '0';
+                i--;
             }
-            else if(a[i]=='0'&&b[i]=='0')
-            {
-                if(carry)
-                {
-                    ans.push_back('1');
-                    carry=0;
-                }
-                else
-                    ans.push_back('0');
+            if(j>=0){
+                carry += b[j] - '0';
+                j--;
             }
-            else
-            {
-                if(carry)
-                    ans.push_back('0');
-                else
-                {
-                    ans.push_back('1');
-                    carry=0;
-                }
-            }
-            // cout<<ans<<" "<<i<<endl;
-            i--;
+            
+            ans += (carry%2 + '0');
+            carry = carry/2;
         }
-        // cout<<carry<<" ";
-        if(carry)
-            ans.push_back('1');
         reverse(ans.begin(),ans.end());
         return ans;
     }
