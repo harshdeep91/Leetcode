@@ -1,1 +1,1 @@
-​
+This solution is correct for input [2, 6, 1, 8]. It doesn't matter that c1 is set to the incorrect number, you are comparing the 8 to c2. It is greater so you return true. And c2 is only set because you found a c1 before it which is smaller. It is not possible for c2 to be set to a certain number and not have a number before it be smaller. So you still can find the subsequence, even though {c1, c2, c3}
