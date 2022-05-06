@@ -1,55 +1,33 @@
 class Solution {
 public:
-    bool canMeasureWater(int jug1, int jug2, int target) {
+    bool canMeasureWater(int j1, int j2, int target) {
+if(j1+j2<target) return false;
         
-        if(jug1 + jug2 < target)
-            return 0;
+        if(j1==target or j2==target) return true;
         
-        queue<pair<int,int>> q;
-        set<pair<int,int>> st;
-        st.insert({jug1 , jug2});
-        q.push({jug1 , jug2});
+        unordered_map <int,int> mp;
+        queue <int> q;
+        q.push(0);
         while(!q.empty()){
-            auto top = q.front();
+            int filled = q.front();
             q.pop();
-            int x = top.first , y = top.second;
-            if(x+y == target)
-                return 1;
-            int X,Y;
-            X = x - min(x , jug2-y);
-            Y = y + min(x , jug2-y);
-            if(st.count({X,Y})==0){
-                st.insert({X,Y});
-                q.push({X,Y});
-            }
-            Y = y - min(y, jug1-x);
-            X = x + min(y, jug1-x);
-            if(st.count({X,Y})==0){
-                st.insert({X,Y});
-                q.push({X,Y});
-            } 
-            X = jug1 ; Y = y;
-             if(st.count({X,Y})==0){
-                st.insert({X,Y});
-                q.push({X,Y});
-            }
-            X = x ; Y = jug2;
-             if(st.count({X,Y})==0){
-                st.insert({X,Y});
-                q.push({X,Y});
-            }
-            X = 0 ; Y = y;
-            if(st.count({X,Y})==0){
-                st.insert({X,Y});
-                q.push({X,Y});
-            } 
-            X = x ; Y =0;
-            if(st.count({X,Y})==0){
-                st.insert({X,Y});
-                q.push({X,Y});
-            }
-               
-        }        
+            
+            if(filled == target) return true;
+            
+			// Maintaining a visited Data Structure to avoid TLE
+            if(mp[filled]>0) continue;
+            
+            mp[filled] = 1;
+                
+            if(filled+j1<=j1+j2)
+                q.push(filled+j1);
+            if(filled-j1>=0)
+                q.push(filled-j1);
+            if(filled+j2<=j1+j2)
+                q.push(filled+j2);
+            if(filled-j2>=0)
+                q.push(filled-j2);
+        }
         return false;
     }
 };
