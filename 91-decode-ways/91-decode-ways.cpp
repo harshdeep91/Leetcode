@@ -1,20 +1,21 @@
 class Solution {
 public:
     int numDecodings(string s) {
-        int n=s.size();
-        vector<int> dp(n,0);
-        dp[0]=1;
+        int n=s.size(),prevprev=0,prev=1,curr=0;
         if(s[0]=='0') return 0;
             for(int i=1;i<n;i++)
             {
                 if(s[i-1]=='1'||(s[i-1]=='2'&&s[i]<'7'))
                 {
-                    dp[i]=i==1?1:dp[i-2];
+                    curr=i==1?1:prevprev;
                 }
                 if(s[i]!='0')
-                    dp[i]+=dp[i-1];
+                    curr+=prev;
+                prevprev=prev;
+                prev=curr;
+                curr=0;
                 // cout<<dp[i]<<" ";
             }
-        return dp[n-1];
+        return prev;
     }
 };
