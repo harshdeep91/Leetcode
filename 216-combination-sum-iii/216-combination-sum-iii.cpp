@@ -1,6 +1,7 @@
 class Solution {
 public:
-    void solve(int i,int k,int n,vector<vector<int>> &ans,vector<int> v)
+    vector<vector<int>> ans;
+    void solve(int i,int k,int n,vector<int> &v)
     {
         if(i==10||k==0||n==0)//base case
         {
@@ -9,13 +10,14 @@ public:
             return;
         }
         v.push_back(i);
-        solve(i+1,k-1,n-i,ans,v);
+        solve(i+1,k-1,n-i,v);
         v.pop_back();
-        solve(i+1,k,n,ans,v);
+        solve(i+1,k,n,v);
     }
     vector<vector<int>> combinationSum3(int k, int n) {
-         vector<vector<int>> ans;
-        solve(1,k,n,ans,{});
+         ans.clear();
+        vector<int> v;
+        solve(1,k,n,v);
         return ans;
     }
 };
