@@ -1,4 +1,4 @@
-<h2><a href="https://leetcode.com/problems/linked-list-random-node/">382. Linked List Random Node</a></h2><h3>Medium</h3><hr><div><p>Given a singly linked list, return a random node's value from the linked list. Each node must have the <strong>same probability</strong> of being chosen.</p>
+<h2><a href="https://leetcode.com/problems/linked-list-random-node/solution/">382. Linked List Random Node</a></h2><h3>Medium</h3><hr><div><p>Given a singly linked list, return a random node's value from the linked list. Each node must have the <strong>same probability</strong> of being chosen.</p>
 
 <p>Implement the <code>Solution</code> class:</p>
 
