@@ -1,25 +1,25 @@
 class Solution {
     vector<int> ans;
+    int t;
 public:
-    void solve(int k,int n)
+    void solve(int k)
     {
         // cout<<k<<" ";
-        if(k<=n)
-        {
-            for(int i=0;i<=9&&k+i<=n;i++)
+            for(int i=0;i<=9&&k+i<=t;i++)
             {
                 ans.push_back(k+i);
-                  solve((k+i)*10,n);
+                if((k+i)*10<=t)
+                  solve((k+i)*10);
             }
-        }
-            
     }
     vector<int> lexicalOrder(int n) {
         ans.clear();
-        for(int i=1;i<=9&&i<=n;i++)
+        t=n;
+        for(int i=1;i<=9&&i<=t;i++)
         {
             ans.push_back(i);
-            solve(i*10,n);
+            if(i*10<=t)
+            solve(i*10);
         }
         return ans; 
     }
