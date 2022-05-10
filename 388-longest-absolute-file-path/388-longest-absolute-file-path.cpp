@@ -31,43 +31,30 @@ public:
         int count=0,flag=0;
         while(i<input.size()&&input[i]!='*')
         {
-            // cout<<input[i]<<" ";
             if(input[i]=='.')
                 flag=1;
-            i++;
-            count++;
+            i++; count++;
         }
-         pair<int,int> p={flag,count};
-         return p;
+         return make_pair(flag,count);
         
     }
     int lengthLongestPath(string input) {
-        // cout<<input<<endl;
-        for(int j=0;j<input.size();j++)
-            if(input[j]=='\n')
-                input[j]='*';
-          else if(input[j]=='\t')
-                input[j]='#';
-        // cout<<input<<endl;
+        replace(input.begin(),input.end(),'\n','*');
+        replace(input.begin(),input.end(),'\t','#');
         stack<pair<int,pair<int,int>>> s;
          int i=0,mx=0;
-        pair<int,int> p=length(i,input);
-          s.push({0,p});
+          s.push({0,length(i,input)});
           while(i<input.size())
           {
-              
                   i++;
-              // cout<<i<<" "<<input[i]<<" "<<mx<<endl;
                   int countt=0;
                   while(i<input.size()&&input[i]=='#')
                     {
-                        i++;
-                        countt++;
+                        i++; countt++;
                     }
                       if(countt==0)
                       {
-                           pair<int,int> p=length(i,input);
-                            s.push({0,p});
+                         s.push({0,length(i,input)});
                           continue;
                       }
                       while(s.top().first+1>countt)
