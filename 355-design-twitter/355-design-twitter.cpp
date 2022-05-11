@@ -1,53 +1,61 @@
 class Twitter {
-  unordered_map<int, vector<pair<int,int>>> tweets;
-    unordered_map<int, set<int>> followers;
-    int count=0;
-
 public:
     Twitter() {
+        time = 0;
+        maxFeed = 10;     
     }
-    
+
     void postTweet(int userId, int tweetId) {
-        tweets[userId].push_back({count++, tweetId});
+        tweets[userId].push_back({time++, tweetId});
+        if (tweets[userId].size() > maxFeed)  
+            tweets[userId].pop_front();
     }
-    
+
     vector<int> getNewsFeed(int userId) {
-        priority_queue<pair<int, pair<int,int>>> q;
-        if(tweets[userId].size())
-                q.push({tweets[userId].back().first, {tweets[userId].size()-1,userId}});
-        for(auto x:followers[userId])
-        {
-            if(tweets[x].size())
-                q.push({tweets[x].back().first, {tweets[x].size()-1,x}});
+        priority_queue<pair<int, int> > feed;
+        for (const auto& tweet : tweets[userId]) 
+            feed.push(tweet);
+        
+        for (const auto& user : subscriptions[userId]) 
+            for (const auto& tweet : tweets[user]) 
+                feed.push(tweet);
+            
+        vector<int> result;
+        while (!feed.empty()) {
+            if (result.size() == maxFeed) 
+                break;
+            result.push_back(feed.top().second);
+            feed.pop();
         }
-        vector<int> ans;
-        while(!q.empty()&&ans.size()<10)
-        {
-            int order = q.top().first;
-            int i = q.top().second.first;
-            int userIds = q.top().second.second;
-            ans.push_back(tweets[userIds][i--].second);
-            q.pop();
-            if (i >= 0)
-                q.push({tweets[userIds][i].first, {i, userIds}});
-        }
-        return ans;
+        return result;
     }
-    
+
     void follow(int followerId, int followeeId) {
-        followers[followerId].insert(followeeId);
+        if (followerId != followeeId) {
+            //if there is already such relation we do not need to do anything
+            auto it = address.find(getKey(followerId, followeeId));
+            if (it == end(address)) {
+                subscriptions[followerId].push_front(followeeId);
+                address[getKey(followerId, followeeId)] = begin(subscriptions[followerId]);    
+            }
+        }
     }
-    
+
     void unfollow(int followerId, int followeeId) {
-        followers[followerId].erase(followeeId);
+        auto key = getKey(followerId, followeeId);
+        
+        //delete only if it exists
+        auto it = address.find(key);
+        if (it != end(address)) 
+            subscriptions[followerId].erase(address[key]);    
+    }
+private:
+    int time, maxFeed;
+    unordered_map<int, deque<pair<int, int>>> tweets;
+    unordered_map<int, list<int>> subscriptions;
+    unordered_map<long, list<int>::iterator> address;
+    
+    long getKey(int followerId, int followeeId) {
+        return (long)followerId << 32 | (long)followeeId;
     }
 };
-
-/**
- * Your Twitter object will be instantiated and called as such:
- * Twitter* obj = new Twitter();
- * obj->postTweet(userId,tweetId);
- * vector<int> param_2 = obj->getNewsFeed(userId);
- * obj->follow(followerId,followeeId);
- * obj->unfollow(followerId,followeeId);
- */
