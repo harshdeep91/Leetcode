@@ -1,61 +1,39 @@
 class Twitter {
+private:
+    unordered_map<int, unordered_set<int>> friends;
+    int timeStamp;
+    priority_queue<array<int,3>>timeline;
 public:
     Twitter() {
-        time = 0;
-        maxFeed = 10;     
+        friends.clear();
+        timeStamp = 0;
+        timeline = priority_queue<array<int,3>>();
     }
-
-    void postTweet(int userId, int tweetId) {
-        tweets[userId].push_back({time++, tweetId});
-        if (tweets[userId].size() > maxFeed)  
-            tweets[userId].pop_front();
-    }
-
-    vector<int> getNewsFeed(int userId) {
-        priority_queue<pair<int, int> > feed;
-        for (const auto& tweet : tweets[userId]) 
-            feed.push(tweet);
-        
-        for (const auto& user : subscriptions[userId]) 
-            for (const auto& tweet : tweets[user]) 
-                feed.push(tweet);
-            
-        vector<int> result;
-        while (!feed.empty()) {
-            if (result.size() == maxFeed) 
-                break;
-            result.push_back(feed.top().second);
-            feed.pop();
-        }
-        return result;
-    }
-
-    void follow(int followerId, int followeeId) {
-        if (followerId != followeeId) {
-            //if there is already such relation we do not need to do anything
-            auto it = address.find(getKey(followerId, followeeId));
-            if (it == end(address)) {
-                subscriptions[followerId].push_front(followeeId);
-                address[getKey(followerId, followeeId)] = begin(subscriptions[followerId]);    
-            }
-        }
-    }
-
-    void unfollow(int followerId, int followeeId) {
-        auto key = getKey(followerId, followeeId);
-        
-        //delete only if it exists
-        auto it = address.find(key);
-        if (it != end(address)) 
-            subscriptions[followerId].erase(address[key]);    
-    }
-private:
-    int time, maxFeed;
-    unordered_map<int, deque<pair<int, int>>> tweets;
-    unordered_map<int, list<int>> subscriptions;
-    unordered_map<long, list<int>::iterator> address;
     
-    long getKey(int followerId, int followeeId) {
-        return (long)followerId << 32 | (long)followeeId;
+    void postTweet(int userId, int tweetId) {
+        timeline.push({timeStamp++, tweetId, userId});
+    }
+    
+    vector<int> getNewsFeed(int userId) {
+        vector<int>res;
+        priority_queue<array<int,3>> userTimeline(timeline);
+        int n = 0;
+        while(!userTimeline.empty() and n < 10) {
+            array<int,3> topfeed = userTimeline.top();
+            if(topfeed[2] == userId || friends[userId].find(topfeed[2])!=friends[userId].end()){
+                res.push_back(topfeed[1]);
+                n++;
+            }
+            userTimeline.pop(); 
+        }
+        return res;
+    }
+    
+    void follow(int followerId, int followeeId) {
+        friends[followerId].insert(followeeId);
+    }
+    
+    void unfollow(int followerId, int followeeId) {
+        friends[followerId].erase(followeeId);
     }
 };
