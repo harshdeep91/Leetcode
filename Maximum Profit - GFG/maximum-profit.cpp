@@ -9,31 +9,45 @@ using namespace std;
 
 class Solution {
   public:
-vector<vector<vector<int>>> dp; //3D DP memoization
-int N;
-    int solve(int prices[], int i, int x, int k){
-        if(i>=N or k==0) return 0; //Base Case
-        if(dp[i][k][x]!=-1) return dp[i][k][x];
-        int profit=0;
-        if(x==0){
-            int Buy= solve(prices, i+1, 1, k)-prices[i]; //if we buy a stock then we recurse on rest of the array, subtract prices[i] from the current profit and change state to x=1 (selling)
-            int noBuy= solve(prices, i+1, 0, k); //if we do not buy a stock then we simply recurse on the rest of the array and the state remains the same x=0 (buying)
-            profit=max(Buy, noBuy);
+    int maxProfit(int k, int n, int price[]) {
+        int profit[k + 1][n + 1];
+ 
+    // For day 0, you can't earn money
+    // irrespective of how many times you trade
+    for (int i = 0; i <= k; i++)
+        profit[i][0] = 0;
+ 
+    // profit is 0 if we don't do any transaction
+    // (i.e. k =0)
+    for (int j = 0; j <= n; j++)
+        profit[0][j] = 0;
+ 
+    // fill the table in bottom-up fashion
+    for (int i = 1; i <= k; i++) {
+        for (int j = 1; j < n; j++) {
+            int max_so_far = price[j] - price[0];
+ 
+            for (int m = 1; m < j; m++)
+                    max_so_far = max(max_so_far,
+                                 price[j] - price[m] + profit[i - 1][m-1]);
+            profit[i][j] = max(profit[i][j - 1], max_so_far);
         }
-        else if(x==1){
-            int Sell= solve(prices, i+1, 0, k-1)+prices[i]; //if we sell a stock then we recurse on rest of the array and add prices[i] to the current profit, state changes to x=0 (Buying) and k decreseas by 1 since a transaction is complete
-            int noSell= solve(prices, i+1, 1, k); //if we do not sell a stock then we recurse on rest of the array, state remains the same (=1 for selling)
-            profit=max(Sell, noSell);
-        }
-        return dp[i][k][x]= profit;
     }
-    
-    int maxProfit(int k, int n, int A[]) {
-         
-          dp= vector<vector<vector<int>>>(n+1, vector<vector<int>>(k+1, vector<int>(2, -1)));
-          N=n;
-        return solve(A, 0, 0, k); //we start from i=0 and x=0 since we've to buy a stock initially
+    // for(int i=0;i<=k;i++)
+    // {
+    //     for(int j=0;j<=n;j++)
+    //     cout<<profit[i][j]<<" ";
+    //     cout<<endl;
+    // }
+    return profit[k][n - 1];
     }
+// 0 0 0 0 0 0 0 
+// 0 0 0 70 70 75 0 
+// 0 0 0 70 70 85 0 
+
+                        // 0 0 0 0 0 0 0 
+                        // 0 12 12 70 70 75 0 
+                        // 0 12 12 82 82 87 0 
 };
 
 // { Driver Code Starts.
