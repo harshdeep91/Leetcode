@@ -1,5 +1,5 @@
 # Maximum Profit
-##  Hard 
+## Hard 
 <div class="problem-statement">
                 <p></p><p><span style="font-size:18px">In the stock market, a person buys a stock and sells it on some future date. Given the stock prices of <strong>N </strong>days in an array <strong>A[ ]</strong> and a positive integer <strong>K</strong>, find out the maximum profit a person can make in at-most <strong>K </strong>transactions. A transaction is equivalent to (buying + selling) of a stock and new transaction can start only when the previous transaction has been completed.</span></p>
 
