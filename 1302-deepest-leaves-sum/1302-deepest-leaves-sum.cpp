@@ -10,26 +10,32 @@
  * };
  */
 class Solution {
+private:
+    int sum{};
+    int level_so_far = 0;
+    void helper(TreeNode* root, int level) {
+        if(root == nullptr) {
+            return ;
+        }
+        
+        
+        if(root->left == nullptr and root->right == nullptr) {
+            if(level > level_so_far) {
+                level_so_far = level;
+                sum = root->val;
+            } else if(level == level_so_far) {
+                sum += root->val;
+            } else return;
+        }
+        
+        helper(root->left, level+1);
+        helper(root->right, level+1);
+    }
 public:
     int deepestLeavesSum(TreeNode* root) {
-        queue<TreeNode*> q;
-        q.push(root);
-        int sum;
-        while(!q.empty())
-        {
-            int size=q.size();
-            sum=0;
-            while(size--)
-            {
-                TreeNode* p=q.front();
-                q.pop();
-                if(p->left)
-                    q.push(p->left);
-                if(p->right)
-                    q.push(p->right);
-                sum+=p->val;
-            }
-        }
+        level_so_far = 0;
+        sum = 0;
+        helper(root,0);
         return sum;
     }
 };
