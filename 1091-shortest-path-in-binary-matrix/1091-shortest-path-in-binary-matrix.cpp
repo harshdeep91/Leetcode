@@ -1,34 +1,43 @@
 class Solution {
 public:
-    int shortestPathBinaryMatrix(vector<vector<int>>& grid) {
-        int r,c,R,C,count=1,n=size(grid);
-        queue<pair<int,int>> q;
-        if(grid[0][0]==1)return -1;
-        q.push({0,0});
-        grid[0][0]=2;
-        if(n==1)return 1;
-        while(!q.empty())
-        {
-            int size=q.size();
-            count++;
-            while(size--)
-            {
-                r=q.front().first ,c=q.front().second;
-                q.pop();
-            for(int i=-1;i<2;i++)
-                {
-                    for(int j=-1;j<2;j++)
-                    {
-                        R=r+i,C=c+j;
-                        if(R<0||R>=n||C<0||C>=n||grid[R][C]>=1)continue;
-                        if(R==n-1&&C==n-1)return count;
-                        grid[R][C]=2;
-                        q.push({R,C});
-                        cout<<R<<" "<<C<<endl;
+    int rows, cols;
+    const vector<pair<int,int>> dirs{{1, 1}, {1, -1}, {-1, -1}, {-1, 1}, {0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+    
+    int bfs(vector<vector<int>>& grid, int r, int c) {
+        if (rows == 1) {
+            return grid[0][0] ? -1 : 1;
+        }
+        queue<pair<int,int>> togo;
+        int sz, dis = 0;
+        togo.push({r, c});
+        grid[r][c] = 1;
+        while (!togo.empty()) {
+            sz = togo.size();
+            dis++;
+            while (sz--) {
+                auto cur = togo.front();
+                togo.pop();
+                for (auto &dir : dirs) {
+                    auto row = cur.first + dir.first, col = cur.second + dir.second;
+                    if (row < 0 || row >= rows || col < 0 || col >= cols || grid[row][col]) {
+                        continue;
                     }
+                    togo.push({row, col});
+                    grid[row][col] = 1;
+                    if (row == 0 and col == 0)
+                        return dis + 1;
                 }
             }
         }
         return -1;
+    }
+    
+    int shortestPathBinaryMatrix(vector<vector<int>>& grid) {
+        rows = grid.size();
+        cols = grid[0].size();
+        
+        if (grid[0][0] || grid[rows - 1][cols - 1])
+            return -1;
+        return bfs(grid, rows - 1, cols - 1);
     }
 };
