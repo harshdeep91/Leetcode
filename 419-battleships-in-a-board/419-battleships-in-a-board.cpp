@@ -1,43 +1,22 @@
 class Solution {
-    vector<vector<char>> mat;
-    int count,m,n;
 public:
-    bool check(int i,int j)
-    {
-        if(i>=0&&i<m&&j>=0&&j<n&&mat[i][j]=='X')
-        {
-            mat[i][j]='L';
-            return 1;
+   int countBattleships(vector<vector<char>>& board)
+{
+    if(board.empty() || board.front().empty()) return 0;
+    
+    const size_t rowCount = board.size();
+    const size_t colCount = board.front().size();
+    
+    int count{0};
+    for(size_t y = 0; y < rowCount; ++y) {
+        for(size_t x = 0; x < colCount; ++x) {
+            if(board[y][x] == 'X') {
+                if(y > 0 && board[y - 1][x] == 'X') continue;
+                if(x > 0 && board[y][x - 1] == 'X') continue;
+                ++count;
+            }
         }
-        return 0;
     }
-    void bfs(int &i,int &j)
-    {
-        // cout<<i<<" "<<j<<endl;
-        queue<pair<int,int>> q;
-        q.push({i,j});
-        mat[i][j]='L';
-        while(!q.empty())
-        {
-            int r=q.front().first;
-            int c=q.front().second;
-            q.pop();
-            if(check(r-1,c))q.push({r-1,c});
-            if(check(r+1,c))q.push({r+1,c});
-            if(check(r,c-1))q.push({r,c-1});
-            if(check(r,c+1))q.push({r,c+1});
-        }
-        count++;
-    }
-    int countBattleships(vector<vector<char>>& board) {
-        mat=board;
-        count=0,m=board.size(),n=board[0].size();
-        for(int i=0;i<m;i++)
-        {
-            for(int j=0;j<n;j++)
-                if(mat[i][j]=='X')
-                bfs(i,j);    
-        }
-        return count;
-    }
+    return count;
+}
 };
