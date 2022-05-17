@@ -14,11 +14,11 @@ public:
         
         if(original)
         {
-            TreeNode* x=getTargetCopy(original->left,cloned->left,target);
-            TreeNode* y=getTargetCopy(original->right,cloned->right,target);
             if(original==target)
                 return cloned;
-            else if(x||y)
+            TreeNode* x=getTargetCopy(original->left,cloned->left,target);
+            TreeNode* y=getTargetCopy(original->right,cloned->right,target);
+            if(x||y)
                 return x?x:y;
         }
         return 0;
