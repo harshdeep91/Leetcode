@@ -55,7 +55,6 @@ class Solution {
     
 public:
     int findMaximumXOR(vector<int>& nums) {
-		sort(nums.begin(), nums.end());
 		Trie trie;
         for(auto x:nums)
             trie.insert(x);
