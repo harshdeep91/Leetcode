@@ -1,35 +1,26 @@
 class Solution {
+    vector<int> a;
 public:
-    bool check(string &s,int &k,int &m)
+    int maxy()
     {
-        int i=0,j=0,a[26]={0},mx=0;
+        int mx=0;
+        for(int i=0;i<26;i++)
+            mx=max(mx,a[i]);
+        return mx;
+    }
+    int characterReplacement(string s, int k) {
+        int i=0,j=0,mx=0,t;
+        a.resize(26,0);
         while(j<s.size())
         {
             a[s[j]-'A']++;
-            if(j-i+1==m)
+            while(i<j&&j-i+1-maxy()>k)
             {
-                mx=0;
-                for(int t=0;t<26;t++)
-                    mx=max(mx,a[t]);
-                if(m-mx<=k)
-                return true;
                 a[s[i++]-'A']--;
             }
+            mx=max(mx,j-i+1);
             j++;
         }
-        return false;
-    }
-    int characterReplacement(string s, int k) {
-        int l=k,h=s.size(),m;
-        while(l<=h)
-        {
-            m=(l+h)>>1;
-            //check substring
-            if(check(s,k,m))
-                l=m+1;
-            else
-                h=m-1;
-        }
-        return h>0?h:1;
+        return mx;
     }
 };
