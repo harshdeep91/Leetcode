@@ -1,9 +1,11 @@
 class Solution {
     char a[4]={'A','C','G','T'};
+    unordered_set<string> m;
+    string End;
 public:
-    int solve(string start,string end,unordered_set<string> &m)
+    int solve(string start)
     {
-        if(start==end)
+        if(start==End)
             return 0;
         int mi=9,tmp;
         // cout<<endl;
@@ -18,7 +20,7 @@ public:
                     if(m.find(start)!=m.end())//we found it
                     {
                         m.erase(start);
-                        mi=min(mi,solve(start,end,m)+1);
+                        mi=min(mi,solve(start)+1);
                         m.insert(start);
                     }
                 }
@@ -27,10 +29,10 @@ public:
         return mi;
     }
     int minMutation(string start, string end, vector<string>& bank) {
-        unordered_set<string> s;
+        End=end,m.clear();
         for(auto x:bank)
-            s.insert(x);
-        int ans=solve(start,end,s);
+            m.insert(x);
+        int ans=solve(start);
         return ans==9?-1:ans;
     }
 };
