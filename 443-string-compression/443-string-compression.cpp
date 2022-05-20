@@ -1,43 +1,16 @@
 class Solution {
 public:
     int compress(vector<char>& chars) {
-        int i=0,j=0,count=0,len=0,rev,count_zero;
-        while(j<chars.size())
-        {
-            
-            while(j<chars.size()&&chars[i]==chars[j])
-            {
-                count++;
-                j++;
-            }
-            // cout<<i<<" "<<j<<" "<<count<<endl;
-            chars[len++]=chars[i];
-            if(count>1)//means only group
-            {
-                //reverse count
-                rev=0,count_zero=0;
-                while(count%10==0)
-                    count_zero++,count/=10;
-                while(count)
-                {
-                    rev*=10;
-                    rev+=count%10;
-                    count/=10;
-                }
-                // cout<<rev<<" "<<len<<endl;
-                // insert in string
-                while(rev)
-                {
-                    chars[len++]=rev%10+'0';
-                    // cout<<rev%10<<" "<<len<<endl;
-                    rev/=10;
-                }
-                while(count_zero)
-                    chars[len++]='0',count_zero--;
-            }
-            count=0;
-            i=j;
-        }
-      return len;  
-    }
+	int i = 0;
+	for(int j = 1, count = 1; j <= chars.size(); j++, count++) {
+		if(j == chars.size() || chars[j] != chars[j - 1]) {
+			chars[i++] = chars[j - 1];  
+			if(count >= 2) 
+				for(char digit : to_string(count)) 
+					chars[i++] = digit;
+			count = 0;
+		}
+	}
+	return i;
+}
 };
