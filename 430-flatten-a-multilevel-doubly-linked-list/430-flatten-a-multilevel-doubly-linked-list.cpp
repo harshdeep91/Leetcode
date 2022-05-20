@@ -11,25 +11,35 @@ public:
 
 class Solution {
 public:
-    Node *merge(Node *last,Node *second)
-    {
-        //merge operation
-        if(last)//for root
-        {
-            last->next=second;
-            second->prev=last;
-            last->child=0;
-        }
-        last=second;
-        second=second->next;//shifting second 
-        if(last->child)//merging childs first
-            last=merge(last,last->child);
-        if(second)//merging next val after child
-        last=merge(last,second);
-        return last;//returning last pointer
-    }
+ 
     Node* flatten(Node* head) {
-        if(head) merge(0,head);
+         Node *cur = head;
+        Node *tail = head;
+        stack<Node*> s;
+        while(cur) {
+            if(cur->child ) {
+                Node *child = cur->child;
+                if(cur->next){ 
+                    s.push(cur->next);
+                    cur->next->prev = 0; 
+                }
+                cur->next = child;
+                child->prev = cur;
+                cur->child = 0;
+            }
+            tail = cur;
+            cur = cur->next;
+        }
+        while(!s.empty()) {
+            cur = s.top();
+            s.pop();
+            tail->next = cur;
+            cur->prev = tail;
+            while(cur ) {
+                tail = cur;
+                cur = cur->next;
+            }
+        }
         return head;
     }
 };
