@@ -13,8 +13,6 @@ class Solution {
 public:
     Node *merge(Node *last,Node *second)
     {
-        // if(last)
-        //     cout<<last->val<<" "<<second->val<<endl;
         //merge operation
         if(last)//for root
         {
@@ -23,28 +21,15 @@ public:
             last->child=0;
         }
         last=second;
-        second=second->next;
-        if(last->child)
-        {
+        second=second->next;//shifting second 
+        if(last->child)//merging childs first
             last=merge(last,last->child);
-        }
-        if(second)
+        if(second)//merging next val after child
         last=merge(last,second);
-        return last;
+        return last;//returning last pointer
     }
     Node* flatten(Node* head) {
-        if(head)
-            merge(0,head);
-        // while(head)
-        // {
-        //     cout<<head->val<<" ";
-        //     if(head->child)
-        //         cout<<head->child->val<<"child ";
-        //     if(head->prev)
-        //         cout<<head->prev->val<<" ";
-        //     cout<<endl;
-        //     head=head->next;
-        // }
+        if(head) merge(0,head);
         return head;
     }
 };
