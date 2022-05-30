@@ -32,16 +32,14 @@ public:
                 t*=d;
                  p=t/100;
                  k=t%100;
-                string c="$";
-                // if(p==0)
+               tmp="$"+to_string(t/100)+"."+(t%100<=9?"0":"")+to_string(t%100);
+                // string c="$";
+                // c+=to_string(p);
+                // c.push_back('.');
+                // if(k<=9)
                 //     c.push_back('0');
-                //  if(p)
-                     c+=to_string(p);
-                c.push_back('.');
-                if(k<=9)
-                    c.push_back('0');
-                c+=to_string(k);
-                tmp=c;
+                // c+=to_string(k);
+                // tmp=c;
             }
             tmp.push_back(' ');
             ans+=tmp;
