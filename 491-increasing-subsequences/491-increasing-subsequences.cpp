@@ -1,31 +1,29 @@
 class Solution {
-    unordered_set<string> st;
-    vector<vector<int>> ans;
-    vector<int> num,v;
 public:
-    void solve(int i,vector<int> &v,string s)
-    {
-        if(i==num.size())
-        {
-            if(st.find(s)==st.end()&&v.size()>1)//not exist
-            {
-                st.insert(s);
-                ans.push_back(v);
-            }
-            return;
-        }
-         //include only when it is empty or element greater
-        if(v.empty()||num[i]>=v.back())
-        {
-            v.push_back(num[i]);
-            solve(i+1,v,s+"*"+to_string(num[i]));
-            v.pop_back();
-        }
-            solve(i+1,v,s); //not include
-    }
+   void solve( vector<vector<int>>&ans,vector<int>&ds,vector<int>& nums,int i)
+   {
+       if(i==nums.size())
+       {
+           if(ds.size()>1)
+           {
+               ans.push_back(ds);
+           }
+               
+           return;
+       }
+       if(ds.size()==0 || (nums[i]>=ds.back()))
+       {
+           ds.push_back(nums[i]);
+           solve(ans,ds,nums,i+1);
+           ds.pop_back();
+       }
+       if(ds.size()==0 || ds[ds.size()-1]!=nums[i]){
+       solve(ans,ds,nums,i+1);}
+   }
     vector<vector<int>> findSubsequences(vector<int>& nums) {
-        num=nums,v.clear();
-        solve(0,v,"");
+        vector<vector<int>>ans;
+        vector<int>ds;
+        solve(ans,ds,nums,0);
         return ans;
     }
 };
