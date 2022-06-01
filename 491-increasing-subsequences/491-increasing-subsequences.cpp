@@ -1,9 +1,9 @@
 class Solution {
-    set<string> st;
+    unordered_set<string> st;
     vector<vector<int>> ans;
-    vector<int> num;
+    vector<int> num,v;
 public:
-    void solve(int i,vector<int> v,string s)
+    void solve(int i,vector<int> &v,string s)
     {
         if(i==num.size())
         {
@@ -24,8 +24,8 @@ public:
             solve(i+1,v,s); //not include
     }
     vector<vector<int>> findSubsequences(vector<int>& nums) {
-        num=nums;
-        solve(0,{},"");
+        num=nums,v.clear();
+        solve(0,v,"");
         return ans;
     }
 };
