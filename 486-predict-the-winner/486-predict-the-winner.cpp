@@ -1,5 +1,4 @@
 class Solution {
-    bool player1;
 public:
     int solve(int i,int j,vector<int> &nums)//[i,j] Not (i,j)
     {
@@ -25,18 +24,31 @@ public:
         //     return min(nums[i]+solve(1,i+1,j,nums),nums[j]+solve(1,i,j-1,nums));
     }
     bool PredictTheWinner(vector<int>& nums) {
-        //max number
-        //choose first or last
-        //after removing all element check if player 1 can win
-        //for one to win he should pick element such that next two is small
-        //one must pick that element when picking to it b loose
-        //i,j => nums[i]+min(solve(b))
-        
-        int x= solve(0,nums.size()-1,nums),sum=0;
-        for(int i=0;i<nums.size();i++)
-            sum+=nums[i];
-        // cout<<x<<" "<<sum<<" "<<sum-x<<endl;
-        return x>=sum-x;
+      
+        int n=nums.size();
+        int dp[n][n],sum=0;
+        for(int g=0;g<n;g++)
+        {
+            for(int j=g,i=0;j<n;j++,i++)
+            {
+                if(g==0)
+                    dp[i][j]=nums[i];
+                else if(g==1)
+                    dp[i][j]=max(nums[j],nums[i]);
+                else
+                 dp[i][j]=max(nums[i]+min(dp[i+2][j],dp[i+1][j-1]),nums[j]+min(dp[i][j-2],dp[i+1][j-1]));
+            }
+            sum+=nums[g];
+        }
+        // for(int i=0;i<n;i++)
+        // {
+        //     for(int j=0;j<n;j++)
+        //     {
+        //         cout<<dp[i][j]<<" ";
+        //     }
+        //     cout<<endl;
+        // }
+        return 2*dp[0][n-1]>=sum;
     }
 };
 
