@@ -11,7 +11,7 @@ public:
             while(!s.empty()&&nums[i%n]>=s.top())
                 s.pop();
             if(!s.empty())
-                ans[i%n]=max(ans[i%n],s.top());
+                ans[i%n]=s.top();
             s.push(nums[i%n]);
         }
         for(int i=0;i<n;i++)
