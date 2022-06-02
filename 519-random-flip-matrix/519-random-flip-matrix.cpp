@@ -1,32 +1,26 @@
 class Solution {
-    vector<vector<int>> v;
-    int count=1,r,c;
 public:
-    Solution(int m, int n) {
-        v.resize(m,vector<int>(n,0));
-        r=m,c=n;
+    Solution(int n_rows, int n_cols) {
+        rows = n_rows, cols = n_cols;
     }
     
     vector<int> flip() {
-        int x,y;
-        do{
-         x=(double)rand()/RAND_MAX*r;
-         y=(double)rand()/RAND_MAX*c;
-            // cout<<x<<" "<<y<<endl;
-        }while(x==r||y==c||v[x][y]==count);
-        v[x][y]=count;
-        return {x,y};
-        // return {0,0};
+        int random = rand() % (rows*cols);
+        
+        while (flipped.count(random)) {
+            random++;
+            random %= (rows*cols);
+        }
+        
+        flipped.insert(random);
+        return {random / cols, random % cols};
     }
     
     void reset() {
-        count++;
+        flipped = {};
     }
+    
+private:
+    int rows, cols;
+    unordered_set<int> flipped;
 };
-
-/**
- * Your Solution object will be instantiated and called as such:
- * Solution* obj = new Solution(m, n);
- * vector<int> param_1 = obj->flip();
- * obj->reset();
- */
