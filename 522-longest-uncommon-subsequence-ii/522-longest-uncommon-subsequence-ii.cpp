@@ -1,31 +1,40 @@
+
 class Solution {
-     unordered_map<string,int> m;
-public:
-    void solve(int i,int j,string s,vector<string>& strs)
-    {
-        if(j==strs[i].size())
-        {
-            m[s]++;
-             return;
-        }
-        //include
-        solve(i,j+1,s+strs[i][j],strs);
-        //exclude
-        solve(i,j+1,s,strs);
-    }
+    public:
     int findLUSlength(vector<string>& strs) {
-        sort(strs.begin(),strs.end(),greater<string>());
-        m.clear();
-        for(int j=0;j<strs.size();j++)
-            solve(j,0,"",strs);
-        int mx=-1,t;
-        for(auto x:m)
-        {
-            t=x.first.size();
-            if(x.second==1)
-                mx=max(mx,t);       
+        sort(strs.begin(),strs.end());
+        int maxLen = -1;
+        for(int i = 0; i < strs.size(); i++){
+            bool flag = false ;
+            int currLen = strs[i].size();
+            for(int j = 0 ; j<strs.size(); j++)
+            {
+
+                if(i != j && isSubsequence(strs[i], strs[j]))
+                {
+                    flag = true ;
+                    break ;
+                }
+            }
+            if(!flag)
+            {
+                maxLen = max(maxLen , currLen);
+            }
         }
-            
-        return mx;
+        return maxLen;
+    }
+
+     bool isSubsequence(string a, string b) {
+        if (a==b) return true;
+        int i = 0;
+        int j = 0;
+        while (i < a.size() && j < b.size()) {
+            if (a[i] == b[j]) {
+                i++;
+            }
+            j++;
+        }
+
+        return i == a.size();
     }
 };
