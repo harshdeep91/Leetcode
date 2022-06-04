@@ -11,7 +11,7 @@ public:
     }
     
     int pickIndex() {
-        int val = ((double)rand()/RAND_MAX)*weight.back();
+        int val = rand()%weight.back();
         // cout<<val<<" ";
         int index=upper_bound(weight.begin(),weight.end(),val)-weight.begin();
         return index-1;
