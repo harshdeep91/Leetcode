@@ -1,26 +1,19 @@
 class Solution {
 public:
     int findPairs(vector<int>& nums, int k) {
-      sort(nums.begin(),nums.end());
-        int i=0,j=1,count=0;
-        while(j<nums.size())
-        {
-            if(nums[j]-nums[i]==k)
+      unordered_map<int,int> m;
+        int count=0;
+        for(auto x:nums)
+            m[x]++;
+        for(auto x:m)
+            if(k==0)
+                count+=(m[k+x.first]>1);
+            else if(m.find(x.first+k)!=m.end())
             {
+                // cout<<x.first<<" "<<x.first+k<<endl;
                 count++;
-                j++,i++;
-                while(j<nums.size()&&nums[j]==nums[j-1])
-                    j++;
-                while(i<nums.size()&&nums[i]==nums[i-1])
-                    i++;
             }
-            else if(nums[j]-nums[i]<k)
-                j++;
-            else
-                i++;
-            
-            if(i==j)j++;
-        }
+        
         return count;
     }
 };
