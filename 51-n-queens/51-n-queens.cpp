@@ -11,11 +11,10 @@ public:
       return 1;
     return 0;
   }
-  void queen( vector<node> &a, int i, int j, int n, vector<int> m, vector<vector<int>> &v)
+  void queen( vector<node> &a, int i,int n, vector<string> m, vector<vector<string>> &v)
   {
     if (i > n)
     {
-      if (m.size() ==n)
         v.push_back(m);
       return;
     }
@@ -26,9 +25,9 @@ public:
         a[k].col = 1;
         a[n + k - i].rdig = 1;
         a[i + k].ldig = 1;
-        m.push_back(k);
-        queen(a, i + 1, k, n, m, v);
-        m.pop_back();
+        m[i-1][k-1]='Q';
+        queen(a, i + 1,n, m, v);
+        m[i-1][k-1]='.';
         a[k].col = 0;
         a[n + k - i].rdig = 0;
         a[i + k].ldig = 0;
@@ -37,20 +36,12 @@ public:
   }
      vector<vector<string>> solveNQueens(int n) {
          vector<node> a(2*n+1,{0,0,0});
-    vector<vector<int>> v;
-    vector<int> m;
-    queen(a, 1, 0, n, m, v);
-         // for(auto x:v)
-         //     for(auto i:x)
-         //         cout<<i<<" ";
          string s;
-         while(s.size()<n)
-             s.push_back('.');
-         vector<vector<string>> ans(v.size(),vector<string>(n,s));
-         for(int i=0;i<v.size();i++)
-             for(int j=0;j<n;j++)
-                 ans[i][j][v[i][j]-1]='Q';
-    return ans;
+         while(s.size()<n) s.push_back('.');
+        vector<vector<string>> v;
+        vector<string> m(n,s);
+        queen(a, 1, n, m, v);
+    return v;
          
     }
 };
