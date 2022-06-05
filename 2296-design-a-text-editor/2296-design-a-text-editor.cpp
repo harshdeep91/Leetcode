@@ -1,83 +1,41 @@
-class Node{
-    public:
-    char data;
-    Node *prev=0,*next=0;
-    Node (char x)
-    {
-        data=x;
-    }
-        
-};
-
 class TextEditor {
-     Node *first=0,*position=0,*last=0,*head=0;
+    deque<char> left;
+    deque<char> right;
 public:
-    string count()
-    {
-        string ans;
-        Node *p=position;
-        while(p!=first&&ans.size()<10)
-        {
-            ans.push_back(p->data);
-            p=p->prev;
-        }
-       reverse(ans.begin(),ans.end());
-            return ans;
-    }
-    
     TextEditor() {
-            first=new Node('-');
-            position=first;
-            last=new Node('-');
-            first->next=last;
-            last->prev=first;
+        
     }
     
     void addText(string text) {
-        head=position->next;
-        for(auto x:text)
-        {
-            position->next=new Node(x);
-            position->next->prev=position;
-            position=position->next;
-        }
-        head->prev=position;
-        position->next=head;
+        left.insert(left.end(),text.begin(),text.end());
     }
     
     int deleteText(int k) {
-        int ans=0;
-        Node *head=position->next;
-        while(position!=first&&k--)
-        {
-            position=position->prev;
-            ans++;
+        int cnt=0;
+        while(!left.empty() and k--){
+            left.pop_back();
+            cnt++;
         }
-        //linking again
-           head->prev=position;
-           position->next=head;
-            return ans;
+        return cnt;
     }
     
     string cursorLeft(int k) {
-        while(position!=first&&k--)
-            position=position->prev;
-        return count();
+        while(!left.empty() and k--){
+            right.push_back(left.back());
+            left.pop_back();
+        }
+        return cursorShiftString();
     }
     
     string cursorRight(int k) {
-      
-        while(position->next!=last&&k--)
-            position=position->next;
-        return count();
+        while(!right.empty() and k--){
+            left.push_back(right.back());
+            right.pop_back();
+        }
+        return cursorShiftString();
+    }
+    
+    string cursorShiftString(){
+        return string(max(left.end()-10,left.begin()),left.end());
     }
 };
-
-/**
- * Your TextEditor object will be instantiated and called as such:
- * TextEditor* obj = new TextEditor();
- * obj->addText(text);
- * int param_2 = obj->deleteText(k);
- * string param_3 = obj->cursorLeft(k);
- * string param_4 = obj->cursorRight(k);
- */
