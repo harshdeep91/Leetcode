@@ -1,60 +1,27 @@
 class TextEditor {
-    stack<char> left;
-    stack<char> right;
+    string before, after;
 public:
-    TextEditor() {
-        
+   
+void addText(string text) {
+    before.insert(end(before), begin(text), end(text));
+}
+int deleteText(int k) {
+    k = min(k, (int)before.size());
+    before.resize(before.size() - k);
+    return k;
+}
+string cursorLeft(int k) {
+    while(k-- && !before.empty()) {
+        after.push_back(before.back());
+        before.pop_back();
     }
-    
-    void addText(string text) {
-        for(auto &c : text){
-            left.push(c);
-        }
+    return before.substr(before.size() - min((int)before.size(), 10));
+}
+string cursorRight(int k) {
+    while(k-- && !after.empty()) {
+        before.push_back(after.back());
+        after.pop_back();
     }
-    
-    int deleteText(int k) {
-        int cnt=0;
-        while(!left.empty() and k>0){
-            left.pop();
-            cnt++;
-            k--;
-        }
-        return cnt;
-    }
-    
-    string cursorLeft(int k) {
-        while(!left.empty() and k>0){
-            char c = left.top();left.pop();
-            right.push(c);
-            k--;
-        }
-		// returning the last min(10, len) characters to the left of the cursor
-        return cursorShiftString();
-    }
-    
-    string cursorRight(int k) {
-        while(!right.empty() and k>0){
-            char c = right.top();right.pop();
-            left.push(c);
-            k--;
-        }
-		// returning the last min(10, len) characters to the left of the cursor
-        return cursorShiftString();
-    }
-    
-	// function to return the last min(10, len) characters to the left of the cursor
-    string cursorShiftString(){
-        string rtn = "";
-        int cnt=10;
-        while(!left.empty() and cnt>0){
-            char c = left.top();left.pop();
-            rtn += c;
-            cnt--;
-        }
-        reverse(rtn.begin(),rtn.end());
-        for(int i=0;i<rtn.size();i++){
-            left.push(rtn[i]);
-        }
-        return rtn;
-    }
+    return before.substr(before.size() - min((int)before.size(), 10));
+}
 };
