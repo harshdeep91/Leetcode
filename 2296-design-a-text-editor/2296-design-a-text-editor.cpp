@@ -1,48 +1,35 @@
-void reverseStr(string& str)
-{
-    int n = str.length();
-    for (int i = 0; i < n / 2; i++)
-        swap(str[i], str[n - i - 1]);
-}
-
-
-struct Node{
-  char data;
+class Node{
+    public:
+    char data;
     Node *prev=0,*next=0;
+    Node (char x)
+    {
+        data=x;
+    }
+        
 };
+
 class TextEditor {
-     Node *first=0,*position=0,*last=0;
-     int point=0;
+     Node *first=0,*position=0,*last=0,*head=0;
 public:
     TextEditor() {
-           first=new Node;
-           first->data='0';
+            first=new Node('-');
             position=first;
-            last=new Node;
-            last->data='1';
+            last=new Node('-');
             first->next=last;
-        last->prev=first;
+            last->prev=first;
     }
     
     void addText(string text) {
-        //postition->next 
-        //insert return the head of string text
-        Node *t=0,*head=0;
-        int i=0;
         head=position->next;
-        while(i<text.size())
+        for(auto x:text)
         {
-            t=new Node;
-            t->data=text[i++];
-            position->next=t;
-            t->prev=position;
-            position=t;
-            point++;
+            position->next=new Node(x);
+            position->next->prev=position;
+            position=position->next;
         }
         head->prev=position;
         position->next=head;
-        //connect the head
-        cout<<point<<" ";
     }
     
     int deleteText(int k) {
@@ -52,56 +39,40 @@ public:
         {
             position=position->prev;
             ans++;
-            point--;
         }
+        //linking again
+           head->prev=position;
            position->next=head;
-            head->prev=position;
-        cout<<point<<" ";
             return ans;
-            
     }
     
     string cursorLeft(int k) {
         string ans;
-        int i=k;
-        while(position!=first&&i--)
-        {
+        while(position!=first&&k--)
             position=position->prev;
-            point--;
-        }
-        //now return ans from position to last min len
-        i=0;
+        k=10;
         Node *p=position;
-        while(p!=first&&i<10)
+        while(p!=first&&k--)
         {
             ans.push_back(p->data);
-            i++;
             p=p->prev;
         }
-       reverseStr(ans);
-        cout<<point<<" ";
+       reverse(ans.begin(),ans.end());
             return ans;
     }
     
     string cursorRight(int k) {
       string ans;
-        int i=k;
-        while(position->next!=last&&i--)
-        {
+        while(position->next!=last&&k--)
             position=position->next;
-            point++;
-        }
-        //now return ans from position to last min len
-        i=0;
+        k=10;
         Node *p=position;
-        while(p!=first&&i<10)
+        while(p!=first&&k--)
         {
             ans.push_back(p->data);
-            i++;
             p=p->prev;
         }
-       reverseStr(ans);
-        cout<<point<<" ";
+       reverse(ans.begin(),ans.end());
             return ans;
     }
 };
