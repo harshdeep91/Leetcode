@@ -12,6 +12,19 @@ class Node{
 class TextEditor {
      Node *first=0,*position=0,*last=0,*head=0;
 public:
+    string count()
+    {
+        string ans;
+        Node *p=position;
+        while(p!=first&&ans.size()<10)
+        {
+            ans.push_back(p->data);
+            p=p->prev;
+        }
+       reverse(ans.begin(),ans.end());
+            return ans;
+    }
+    
     TextEditor() {
             first=new Node('-');
             position=first;
@@ -47,33 +60,16 @@ public:
     }
     
     string cursorLeft(int k) {
-        string ans;
         while(position!=first&&k--)
             position=position->prev;
-        k=10;
-        Node *p=position;
-        while(p!=first&&k--)
-        {
-            ans.push_back(p->data);
-            p=p->prev;
-        }
-       reverse(ans.begin(),ans.end());
-            return ans;
+        return count();
     }
     
     string cursorRight(int k) {
-      string ans;
+      
         while(position->next!=last&&k--)
             position=position->next;
-        k=10;
-        Node *p=position;
-        while(p!=first&&k--)
-        {
-            ans.push_back(p->data);
-            p=p->prev;
-        }
-       reverse(ans.begin(),ans.end());
-            return ans;
+        return count();
     }
 };
 
