@@ -14,16 +14,10 @@ public:
                 if(m.find(prev)==m.end())
                     m[prev]=wall.size();
                  m[prev]--;
-                if(prev!=sum)
-                mi=min(m[prev],mi);    
+                if(prev!=sum&&m[prev]<mi)
+                mi=m[prev];    
             }
-            // if(sum=)
         }
-//         for(int i=1;i<a.size()-1;i++)
-//         {
-//             cout<<a[i]<<" ";
-            
-//         }
         return mi;
     }
 };
