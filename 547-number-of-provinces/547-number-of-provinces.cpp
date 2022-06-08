@@ -1,27 +1,27 @@
 class Solution {
 public:
-     void dfs(int i,vector<vector<int>>& mat)
-     {
-         for(int j=0;j<mat[i].size();j++)
-         {
-             if(mat[i][j])
-             {
-                  mat[i][j]=0;
-                  mat[j][i]=0;
-                  dfs(j,mat);
-             }
-         }
-     }
-    int findCircleNum(vector<vector<int>>& mat) {
-        int count=0;
-        for(int i=0;i<mat.size();i++)
-        {
-            if(mat[i][i])
-            {
-                count++;
-                dfs(i,mat);
-            }
-        }
-        return count;
-    }
+    int findCircleNum(vector<vector<int>>& M) {
+	int n=M.size(),ans=0;
+	if(n==0) return 0;
+
+	vector<bool>vis(n,false);
+
+	for(int i=0;i<n;i++)
+	{
+		if(!vis[i])
+		{
+			ans++;
+			dfs(M,vis,i);
+		}
+	}
+	return ans;
+}
+
+void dfs(vector<vector<int>>& M, vector<bool>& vis, int i)
+{
+	vis[i]=true;
+	for(int j=0;j<M.size();j++)
+		if(M[i][j]==1 && !vis[j])
+			dfs(M,vis,j);
+}
 };
