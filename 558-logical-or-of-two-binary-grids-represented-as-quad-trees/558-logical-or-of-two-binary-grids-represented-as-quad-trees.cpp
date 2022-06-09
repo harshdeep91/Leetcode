@@ -63,10 +63,8 @@ public:
         //merge if they are leaves and have same val
     if(tmp->topLeft->isLeaf&&tmp->topRight->isLeaf&&tmp->bottomLeft->isLeaf&&tmp->bottomRight->isLeaf)//this means all leaf
       {
-        if(tmp->topLeft->val&&tmp->topRight->val&&tmp->bottomLeft->val&&tmp->bottomRight->val)//this means all value 1
-            return new Node(1,1);
-        else if(tmp->topLeft->val==0&&tmp->topRight->val==0&&tmp->bottomLeft->val==0&&tmp->bottomRight->val==0)//all value 0  
-            return new Node(0,1);
+        if(tmp->topLeft->val==tmp->topRight->val&&tmp->topLeft->val==tmp->bottomLeft->val&&tmp->topLeft->val==tmp->bottomRight->val)//this means all value same
+            return new Node(tmp->topLeft->val,1);
       }
         tmp->val=0;
         tmp->isLeaf=0;
