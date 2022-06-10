@@ -23,8 +23,8 @@ public:
                 else
                     count+=k- ++j;
             }
-            while(j<k)
-                    count+=k- ++j;
+            if(++j<k)
+               count+= ((k-j)*(k-j+1))/2;
         }
         // [6,16,24,24,29,44]
         return count;
