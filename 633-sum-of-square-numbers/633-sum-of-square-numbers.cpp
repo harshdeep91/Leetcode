@@ -8,12 +8,9 @@ public:
         //b<=sqrt(c)
         //means b must be less than sqrt of c
         // a=sqr(c-b) //check if it is integer or not
-        // int b=sqrt(c);
-        // cout<<b<<endl;
         for(int i=0;i<=sqrt(c);i++)
         {
             double a=sqrt(c-i*i);
-            // cout<<a<<" ";
             if((int)a==a)
                 return 1;
         }
