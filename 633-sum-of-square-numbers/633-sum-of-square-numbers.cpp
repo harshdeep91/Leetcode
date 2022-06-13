@@ -1,20 +1,19 @@
 class Solution {
-    public:
+public:
     bool judgeSquareSum(int c) {
-        if (c < 0) {
-            return false;
+       //a*a+b*b=c
+        // a*a>=0
+        //c-b*b>=0
+        //b*b<=c
+        //b<=sqrt(c)
+        //means b must be less than sqrt of c
+        // a=sqr(c-b) //check if it is integer or not
+        for(int i=0;i<=sqrt(c);i++)
+        {
+            double a=sqrt(c-i*i);
+            if((int)a==a)
+                return 1;
         }
-        long long left = 0, right = (int)sqrt(c);
-        while (left <= right) {
-            long long cur = left * left + right * right;
-            if (cur < c) {
-                left++;
-            } else if (cur > c) {
-                right--;
-            } else {
-                return true;
-            }
-        }
-        return false;
+       return 0;
     }
 };
