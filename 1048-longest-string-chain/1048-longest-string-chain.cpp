@@ -1,39 +1,20 @@
 class Solution {
 public:
-    int check(string &s,string &t)
-    {
-        if(s.size()+1!=t.size())return 0;
-        int i=0,j=0,add=0;
-        while(i<s.size()&&j<t.size())
-        {
-            if(s[i]==t[j])i++,j++;
-            else if(!add)j++,add=1;
-            else return 0;
-        }
-        
-        return (j<t.size()&&!add)||(i==s.size()&&j==t.size());
+      static bool compare(const string &s1, const string &s2) {
+        return s1.length() < s2.length();
     }
-    static bool cmp(string &s,string &t)
-    {
-        return s.size()<t.size()||(s.size()==t.size()&&s<t);
-    }
+
     int longestStrChain(vector<string>& words) {
-        sort(words.begin(),words.end(),cmp);
-        // for(int i=0;i<words.size();i++)cout<<words[i]<<" ";
-        // cout<<endl;
-        vector<int> ans(words.size(),1);
-        int mx=0;
-        for(int i=0;i<words.size();i++)
-        {
-            for(int j=i+1;j<words.size();j++)
-            {
-                if(check(words[i],words[j]))
-                    ans[j]=max(ans[j],ans[i]+1);
+        sort(words.begin(), words.end(), compare);
+        unordered_map<string, int> dp;
+        int res = 0;
+        for (string w : words) {
+            for (int i = 0; i < w.length(); i++) {
+                string pre = w.substr(0, i) + w.substr(i + 1);
+                dp[w] = max(dp[w], dp.find(pre) == dp.end() ? 1 : dp[pre] + 1);
             }
-            mx=max(ans[i],mx);
-            // cout<<ans[i]<<" ";
+            res = max(res, dp[w]);
         }
-        // cout<<endl;
-        return mx;
+        return res;
     }
 };
