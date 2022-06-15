@@ -10,9 +10,7 @@ public:
         if(!isFull())
         {
             q[f]=value;
-            f=f-1;
-            if(f<0)f=q.size()-1;
-            f%=q.size();
+            f=(f-1+q.size())%q.size();
             return true;
         }
         return false;
@@ -40,9 +38,7 @@ public:
     bool deleteLast() {
         if(!isEmpty())
         {
-            l=l-1;
-            if(l<0)l=q.size()-1;
-            l%=q.size();
+            l=(l-1+q.size())%q.size();
             return true;
         }
         return false;
@@ -61,10 +57,7 @@ public:
         int x=-1;
         if(!isEmpty())
         {
-            if(l-1<0)
-            x=q[q.size()-1];
-            else
-                x=q[(l-1)%q.size()];
+            x=q[(l-1+q.size())%q.size()];
         }
         return x;
     }
