@@ -1,5 +1,5 @@
 class MagicDictionary {
-    unordered_map<string,int> s;
+    map<string,int> s;
 public:
     MagicDictionary() {
         
