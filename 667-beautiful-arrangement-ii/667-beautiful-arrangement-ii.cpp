@@ -16,10 +16,11 @@ public:
             flag=!flag;
         }
         int count=v.back()+1;
+        while(m.find(count)!=m.end())
+            count++;
         while(v.size()<n)
         {
-            if(m.find(count)==m.end())
-               v.push_back(count);
+            v.push_back(count);
             count++;
         }
         return v;
