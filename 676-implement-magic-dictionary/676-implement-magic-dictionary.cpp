@@ -1,5 +1,5 @@
 class MagicDictionary {
-    map<string,int> s;
+    unordered_map<string,int> s;
 public:
     MagicDictionary() {
         
@@ -11,7 +11,10 @@ public:
             s[d[i]]++;
             for(int j=0;j<d[i].size();j++)
             {
-                s[d[i].substr(0,j)+"*"+d[i].substr(j+1)]++;
+                char c=d[i][j];
+                d[i][j]='*';
+                s[d[i]]++;
+                d[i][j]=c;
             }
         }
     }
@@ -22,12 +25,13 @@ public:
         bool flag=0;
         if(s[ss]==1)
             flag=1;
-        string t;
         for(int j=0;j<ss.size();j++)
             {
-                  t=ss.substr(0,j)+"*"+ss.substr(j+1);
-                 if( (flag&&s[t]>1)||(!flag&&s[t]) )
+                  char c=ss[j];
+                   ss[j]='*';
+                 if( (flag&&s[ss]>1)||(!flag&&s[ss]) )
                        return 1;
+                   ss[j]=c;
             }
                    return 0;
     }
