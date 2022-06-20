@@ -5,7 +5,6 @@ class trie{
     public:
     void insert(string &s)
     {
-        reverse(s.begin(),s.end());
         if(this->child[s[0]-'a']==0)
         this->child[s[0]-'a']=new trie();
         trie *p=this->child[s[0]-'a'];
@@ -18,10 +17,9 @@ class trie{
             p->wordcount++;
         }
     }
-    //count only if wordcount==1 because this means we dont have any merging suffix linke men,time  => if(me,time )<=this is mearging
+    //count only if wordcount==0 because this means we dont have any merging suffix linke men,time  => if(me,time )<=this is mearging
     int count(string &s)
     {
-        reverse(s.begin(),s.end());
         trie *p=this->child[s[0]-'a'];//this means we are jumping to first char
         for(int i=1;i<s.size();i++)
             p=p->child[s[i]-'a'];
@@ -34,11 +32,14 @@ class Solution {
 public:
     int minimumLengthEncoding(vector<string>& words) {
         first=new trie();
-        for(auto x:words)
-            first->insert(x);
+        for(int i=0;i<words.size();i++)
+        {
+            reverse(words[i].begin(),words[i].end());
+            first->insert(words[i]);
+        }
         int ans=0;
-         for(auto x:words)
-             ans+=first->count(x);
+         for(int i=0;i<words.size();i++)
+            ans+=first->count(words[i]);
         return ans;
     }
 };
