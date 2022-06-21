@@ -40,7 +40,7 @@ public:
         }
         vis.resize(edges.size()+1,0);
           dfs(1,0,adj);
-        cout<<index<<" ";
+        // cout<<index<<" ";
         return edges[index];
     }
 };
