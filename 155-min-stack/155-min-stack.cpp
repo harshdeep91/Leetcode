@@ -1,5 +1,5 @@
 class MinStack {
-    stack<int> s,t,k;
+    stack<int> s;
     map<int,int> m;
 public:
     MinStack() {
@@ -8,18 +8,12 @@ public:
     
     void push(int val) {
        s.push(val);
-       m[val]++;
-        // while(!t.empty()&&t.top()<val)
-        //     k.push(t.top()),t.pop();
-        //  t.push(val);
-        // while(!k.empty())
-        //     t.push(k.top()),k.pop();
-        // cout<<val<<" "<<t.top()<<endl;
-        
+       m[val]++;  
     }
     
     void pop() {
         m[s.top()]--;
+        if(m[s.top()]==0)m.erase(s.top());
         s.pop();
     }
     
@@ -28,9 +22,7 @@ public:
     }
     
     int getMin() {
-        for(auto x:m)
-            if(x.second!=0)return x.first;
-        return 0;
+        return m.begin()->first;
     }
 };
 
