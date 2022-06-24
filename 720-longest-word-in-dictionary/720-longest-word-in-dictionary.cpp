@@ -52,7 +52,7 @@ class Solution {
     
 public:
     string longestWord(vector<string>& words) {
-        sort(words.begin(),words.end());
+        // sort(words.begin(),words.end());
     trie *first=new trie();    
         for(auto x:words)
         {
@@ -75,7 +75,7 @@ public:
                 }
             }
         }
-        cout<<s<<" "<<len<<endl;
+        // cout<<s<<" "<<len<<endl;
         reverse(s.begin(),s.end());
         return s;
     }
