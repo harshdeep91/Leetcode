@@ -1,31 +1,33 @@
 class MyCalendar {
-    private:
-    map<int,int> bookings;
-    
+    set<pair<int,int>> s;
+    unordered_map<int,int> m;
+    // set<int> s;
 public:
+    //insert end start as this will maintain sortest end first
     MyCalendar() {
         
     }
-        //INTUITION: Similar to interview scheduling type problems (like interview scheduling, corporate flight booking)
     
-    //ALGO: We increase the count of every point of time when a booking start date is, and decrease the count of every point when a booking end date is.
-    //So the recurring sum of these counts will denote the recurring number of bookings at any specific point of time.
-    //At any point of time, if this sum==2, then we return false and also delete the entry of this booking
     bool book(int start, int end) {
-        bookings[start]++;
-        bookings[end]--;
-        int recurringBookings = 0;
-        
-        for(auto&b: bookings)
+        pair<int,int> x={end,start};
+        // s.insert(x);
+        auto ss=lower_bound(s.begin(),s.end(),x);
+        auto ff=s.begin();
+        ff=ss!=s.begin()?prev(ss):s.begin();
+        // cout<<ff->second<<" "<<ss->second<<endl;
+        // int t=ff-s.begin();
+        if((ss==s.begin()&&end<=ss->second)||(ss==s.end()&&start>=ff->first)||end<=ss->second&&start>=ff->first)
         {
-            recurringBookings+=b.second;
-            if(recurringBookings==2)
-            {
-                bookings[start]--;
-                bookings[end]++;
-                return false;
-            }
+            s.insert(x);
+            // cout<<x.second<<" "<<x.first<<endl;
+            return 1;
         }
-        return true;
+        return 0;
     }
 };
+
+/**
+ * Your MyCalendar object will be instantiated and called as such:
+ * MyCalendar* obj = new MyCalendar();
+ * bool param_1 = obj->book(start,end);
+ */
