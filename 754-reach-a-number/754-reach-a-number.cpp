@@ -6,28 +6,8 @@ public:
         //every time extra values added 
         target=abs(target);
         int count=0,steps=0;
-        if(target&1)//odd find value greater then or equal target but in odd way
-        {
-            while(count<target)
-            {
-                count+=++steps;
-            }
-            // cout<<count<<endl;
-            while(!(count&1))//make it even by adding extra steps
-                count+=++steps;
-            
+        while(count<target||((target&1)&&!(count&1))||(!(target&1)&&(count&1)))
+            count+=++steps;
             return steps;
-        }
-        else
-        {
-            while(count<target)
-            {
-                count+=++steps;
-            }
-            while((count&1))//make it even by adding extra steps
-                count+=++steps;
-            return steps;
-        }
-        return 0;
     }
 };
