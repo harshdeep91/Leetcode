@@ -1,45 +1,42 @@
 class Solution {
-public:
     unordered_map<string,vector<char>> m;
-    unordered_map<string,bool> dp;
-    bool dfs(string t, int idx,string cur)
+    unordered_map<string,bool> vis;
+public:
+    bool solve(int i,string top,string bottom)
     {
-        if(t.length()==1)
+        
+        if(bottom.size()==1)return 1;
+        if(top.size()+1==bottom.size())//then increase level
+            return solve(0,"",top);
+        string key=bottom,prefix;
+        if(vis.find(key)!=vis.end())return vis[key];
+        //find first two digit and put the char one by one
+         prefix.push_back(bottom[i]);
+         prefix.push_back(bottom[i+1]);
+        for(auto x:m[prefix])
         {
-            // cout<<t<<'\n';
-            // cout<<cur<<'\n';
-            return true;
+            top.push_back(x);
+            if(solve(i+1,top,bottom))
+                return 1;
+            top.pop_back();
         }
-        
-        if(idx==(t.length()-1))
-        {
-            return dfs(cur,0,"");
-        }
-        
-        if(dp.find(t)!=dp.end())
-            return dp[t];
-        
-        vector<char> v = m[t.substr(idx,2)];
-        bool ans = false;
-        for(int i=0;i<v.size();i++)
-        {
-            if(dfs(t,idx+1,cur+v[i]))
-                return true;
-        }
-        
-        
-        dp[t] = ans;
-        return ans;
+        return vis[key]=0;
     }
-    
-    bool pyramidTransition(string s, vector<string>& a) {
-        dp.clear();
-        m.clear();
-        for(int i=0;i<a.size();i++)
+    bool pyramidTransition(string bottom, vector<string>& allowed) {
+        //possible by recursion 
+        //choose first two digits from bottom
+        //find every three digit allowed 
+        //check one by one
+        //put the every possible triangle and check
+        string t;
+        for(auto x:allowed)
         {
-            m[a[i].substr(0,2)].push_back(a[i][2]);    
+            t.push_back(x[0]);
+            t.push_back(x[1]);
+            m[t].push_back(x[2]);
+            t.pop_back();
+            t.pop_back();
         }
-        
-        return dfs(s,0,"");
+        return solve(0,"",bottom);
     }
 };
