@@ -10,16 +10,12 @@ public:
     
     bool book(int start, int end) {
         pair<int,int> x={end,start};
-        // s.insert(x);
-        auto ss=lower_bound(s.begin(),s.end(),x);
-        auto ff=s.begin();
+        set<pair<int,int>>::iterator ss,ff;
+        ss=lower_bound(s.begin(),s.end(),x);
         ff=ss!=s.begin()?prev(ss):s.begin();
-        // cout<<ff->second<<" "<<ss->second<<endl;
-        // int t=ff-s.begin();
         if((ss==s.begin()&&end<=ss->second)||(ss==s.end()&&start>=ff->first)||end<=ss->second&&start>=ff->first)
         {
             s.insert(x);
-            // cout<<x.second<<" "<<x.first<<endl;
             return 1;
         }
         return 0;
