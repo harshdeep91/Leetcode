@@ -6,11 +6,10 @@ public:
         //need to carefully check when subtracting 11 or 10
         //31 => 31-11 => 20 => 20-11 => 9-1 till(9) = 11
         //31 => 31-11 => 20-10 => 20-10 = 3
-        //means we either have two options
-        // 131=>131-111 => 20 =>
-        // we can store min for 2 digits values
-        //find for other
-        //934=> 234-111=> 123 -111=> 012=>
+        //what i observe here that
+        //we start from first of from front(because we have two choices 0,1 but in back only 1)
+        // 32 => now for 3 we need 3 times 1 so 3
+        // now for 2 we need 2 ones => but we already used 3 ones so we can use 11,11,10 
         int mx=0;
         for(auto x:n)
             mx=max(x-'0',mx);
