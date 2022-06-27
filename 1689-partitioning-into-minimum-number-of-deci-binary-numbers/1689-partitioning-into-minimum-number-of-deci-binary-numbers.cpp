@@ -11,8 +11,11 @@ public:
         // 32 => now for 3 we need 3 times 1 so 3
         // now for 2 we need 2 ones => but we already used 3 ones so we can use 11,11,10 
         int mx=0;
-        for(auto x:n)
-            mx=max(x-'0',mx);
+        for(int i=0;i<n.size();i++)
+        {
+            if(mx==9)return 9;
+            mx=max(n[i]-'0',mx);
+        }
         return mx;
     }
 };
