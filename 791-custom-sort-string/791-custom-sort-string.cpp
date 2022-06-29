@@ -21,15 +21,16 @@ public:
             if(a[order[i]-'a']==201)
                 a[order[i]-'a']=i;
         }
-        priority_queue<pair<int,char>,vector<pair<int,char>>,greater<pair<int,char>>>q;
-        for(auto x:s)
-            q.push({a[x-'a'],x});
-        s.clear();
-        while(!q.empty())
-        {
-            s.push_back(q.top().second);
-            q.pop();
-        }
+        // priority_queue<pair<int,char>,vector<pair<int,char>>,greater<pair<int,char>>>q;
+        // for(auto x:s)
+        //     q.push({a[x-'a'],x});
+        // s.clear();
+        // while(!q.empty())
+        // {
+        //     s.push_back(q.top().second);
+        //     q.pop();
+        // }
+        sort(s.begin(),s.end(),[&](char &x,char &y){return a[x-'a']<a[y-'a'];});
         return s;
     }
 };
