@@ -1,36 +1,20 @@
 class Solution {
-    int size,m=pow(10,9)+7;
-    vector<vector<int>> dp;
 public:
-    int solve(int i,int j)
-    {
-        // cout<<i<<" "<<j<<" "<<count<<endl;
-        if(i==size&&j==size)
-            return 1;
-        if(i>size||j>size)return 0;
-        if(dp[i][j]!=-1)return dp[i][j]%m;
-        long long x=0;
-             if(i==j)
-             {
-                 x+=solve(i+2,j+2)%m;//--
-                 x+=solve(i+1,j+1)%m;// |
-                 x+= solve(i+1,j+2)%m; // |_
-                 x+= solve(i+2,j+1)%m;//|^
-             }
-             else if(abs(i-j)==1)
-             {
-                 if(i-j==1)
-                 x+= solve(i+1,j+2)%m;// _| 
-                 else
-                     x+= solve(i+2,j+1)%m;// ^| 
-                 x+= solve(i+2,j)%m+solve(i,j+2)%m;
-             }
-        return dp[i][j]=x%m;
+    int numTilings(int N) {
+    int md=1e9;
+    md+=7;
+    vector<long long> v(1001,0);
+    v[1]=1;
+    v[2]=2;
+    v[3]=5;
+    if(N<=3)
+        return v[N];
+    for(int i=4;i<=N;++i){
+        v[i]=2*v[i-1]+v[i-3]; 
+        v[i]%=md;
     }
-    int numTilings(int n) {
-        size=n;
-        dp.resize(n+1,vector<int>(n+1,-1));
-        return solve(0,0);
-            
-    }
+    return v[N];
+    
+}
+
 };
