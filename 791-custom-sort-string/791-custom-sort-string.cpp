@@ -19,16 +19,11 @@ public:
         for(int i=0;i<order.size();i++)
         {
             if(a[order[i]-'a']==201)
-            {
                 a[order[i]-'a']=i;
-                // cout<<order[i]<<" "<<i<<endl;
-            }
         }
         priority_queue<pair<int,char>,vector<pair<int,char>>,greater<pair<int,char>>>q;
         for(auto x:s)
-        {
             q.push({a[x-'a'],x});
-        }
         s.clear();
         while(!q.empty())
         {
