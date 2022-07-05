@@ -11,40 +11,34 @@ public:
             {
                 if(dec==1)//means decreasing trend is coming start fresh
                 {
-                    mx=max(count,mx);
-                    count=2; 
+                    count=1; 
                     dec=0;
-                    inc=1;
                 }
-                else{
-                  inc=1;
-                    count++;
-                } 
+                inc=1;
             }
             else if(arr[i]<arr[i-1])//decreasing
             {
                 if(inc==1)//means decreasing trend started this might me mountain
                 {
-                    count++;
                     dec=1;
                 }
                 else //start fresh 
                 {
                     inc=0;
                     dec=0;
-                    count=1;
+                    count=0;
                 }
             }
             else //equal case
             {
-                mx=max(inc&&dec?count:0,mx);
                 inc=0;
                 dec=0;
-                count=1;
+                count=0;
             }
-                // cout<<arr[i]<<" "<<inc<<" "<<dec<<" "<<count<<" "<<mx<<endl;
+                count++;
+            mx=max(inc&&dec?count:0,mx);
         }
-        mx=max(inc&&dec?count:0,mx);
+        
         return mx>=3?mx:0;
     }
 };
