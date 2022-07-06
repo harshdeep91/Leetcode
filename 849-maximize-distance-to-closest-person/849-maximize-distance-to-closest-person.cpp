@@ -1,31 +1,18 @@
 class Solution {
 public:
     int maxDistToClosest(vector<int>& seats) {
-        vector<int> left=seats,right=seats;
-        int mi=0;
-        //take 0 as -1 
-        //dis from left
-        for(int i=0;i<seats.size();i++)
-            if(seats[i]==0)
-                left[i]=(i>0?left[i-1]:0)-1;
-        mi=left.back();//edge case
-        // for(int i=0;i<seats.size();i++)
-        //     cout<<left[i]<<" ";
-        // cout<<endl;
-        
-        for(int i=seats.size()-1;i>=0;i--)
-            if(seats[i]==0)
+        //find maximum array of sum 0
+        int i=0,j=0,sum=0,mx=0;
+        while(j<seats.size())
+        {
+            sum+=seats[j++];
+            if(sum==0)mx=max((i==0||j==seats.size())?2*(j-i):(j-i),mx);
+            else
             {
-                right[i]=(i+1<seats.size()?right[i+1]:0)-1;
-                left[i]=max(left[i],right[i]);
+                i=j;
+                sum=0;
             }
-         mi=min(right.front(),mi);//edge case
-        // for(int i=0;i<seats.size();i++)
-        //     cout<<right[i]<<" ";
-        // cout<<endl;
-        for(int i=0;i<seats.size();i++)
-            mi=min(left[i],mi);
-        // cout<<mi<<" ";
-        return 1-mi;
+        }
+        return ceil(mx/2.0);
     }
 };
