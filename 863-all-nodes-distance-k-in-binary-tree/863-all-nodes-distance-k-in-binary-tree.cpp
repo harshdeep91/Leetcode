@@ -28,20 +28,20 @@ public:
         return -1;
     }
     //simple travel
-    void solve(TreeNode* root, TreeNode* target, int k) {
+    void solve(TreeNode* root,int k) {
         if(root)
         {
             //assign the dis if it is not there already
             if(dis.find(root->val)!=dis.end())
             {
-                solve(root->left,target,dis[root->val]+1);
-                solve(root->right,target,dis[root->val]+1);
+                solve(root->left,dis[root->val]+1);
+                solve(root->right,dis[root->val]+1);
             }
             else //assign k
             {
                 dis[root->val]=k;
-                solve(root->left,target,k+1);
-                solve(root->right,target,k+1);
+                solve(root->left,k+1);
+                solve(root->right,k+1);
             }
         }
     }
@@ -50,11 +50,11 @@ public:
         //only to ancestores
         //travel again but this time with the assigned dis
         assignfirst(root,target);
-        solve(root,target,0);
+        solve(root,0);
         vector<int> ans;
         for(auto x:dis)
         {
-            // cout<<x.first<<" "<<x.second<<endl;
+            cout<<x.first<<" "<<x.second<<endl;
             if(x.second==k)ans.push_back(x.first);
         }
         return ans;
