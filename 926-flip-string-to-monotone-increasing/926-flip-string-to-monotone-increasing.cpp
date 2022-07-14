@@ -7,12 +7,17 @@ public:
         // at i th bit all 0 to i-1 must be 0 and i to n must be 1
         //so count the no of ones from left and count the no of zeroes from right
         int n=s.size();
-        vector<int> lo(n,0),rz(n,0);
+        vector<int> lo(n,0);
         for(int i=0;i<n;i++)
             lo[i]=(s[i]=='1')+(i-1>=0?lo[i-1]:0);
         
+        int mi=lo[n-1];
         for(int i=n-1;i>=0;i--)
-            rz[i]=(s[i]=='0')+(i+1<n?rz[i+1]:0);
+        {
+            lo[i]=(s[i]=='0')+(i+1<n?lo[i+1]:0);
+            mi=min(mi,(i-1>=0?lo[i-1]:0)+lo[i]);
+        }
+            
         
         // for(int i=0;i<n;i++)
         //     cout<<lo[i]<<" ";
@@ -20,9 +25,9 @@ public:
         // for(int i=0;i<n;i++)
         //     cout<<rz[i]<<" ";
         //best position would be min of left+right
-        int mi=lo[n-1];
-        for(int i=0;i<n;i++)
-            mi=min(mi,(i-1>=0?lo[i-1]:0)+rz[i]);
+        
+        // for(int i=0;i<n;i++)
+            
         return mi;
     }
 };
