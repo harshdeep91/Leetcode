@@ -1,22 +1,23 @@
 class Solution {
 public:
- int numSubmatrixSumTarget(vector<vector<int>>& matrix, int target) {
-        int rows = matrix.size(), cols = matrix[0].size();
-        int count = 0;
-        for(int L=0; L<cols; L++) {
-            vector<int> running_rows(rows,0); //intialize the running row
-            for(int R=L; R<cols; R++) { //calculate running rows sum
-                for(int i=0; i<rows; i++) running_rows[i] += matrix[i][R]; 
-                int sum = 0;
-                unordered_map<int, int> visited;
-                for(int i=0; i<rows; i++) { //check for subarrays in every running row
-                    visited[sum]++;
-                    sum = sum + running_rows[i];
-                    if(visited[sum - target]) 
-                        count += visited[sum - target];
+ int numSubmatrixSumTarget(vector<vector<int>>& A, int target) {
+        int res = 0, m = A.size(), n = A[0].size();
+        for (int i = 0; i < m; i++)
+            for (int j = 1; j < n; j++)
+                A[i][j] += A[i][j - 1];
+
+        unordered_map<int, int> counter;
+        for (int i = 0; i < n; i++) {
+            for (int j = i; j < n; j++) {
+                counter = {{0,1}};
+                int cur = 0;
+                for (int k = 0; k < m; k++) {
+                    cur += A[k][j] - (i > 0 ? A[k][i - 1] : 0);
+                    res += counter.find(cur - target) != counter.end() ? counter[cur - target] : 0;
+                    counter[cur]++;
                 }
             }
         }
-        return count;
+        return res;
     }
 };
