@@ -1,4 +1,4 @@
-<h2><a href="https://leetcode.com/problems/reveal-cards-in-increasing-order/">950. Reveal Cards In Increasing Order</a></h2><h3>Medium</h3><hr><div><p>You are given an integer array <code>deck</code>. There is a deck of cards where every card has a unique integer. The integer on the <code>i<sup>th</sup></code> card is <code>deck[i]</code>.</p>
+<h2><a href="https://leetcode.com/problems/reveal-cards-in-increasing-order/solution/">950. Reveal Cards In Increasing Order</a></h2><h3>Medium</h3><hr><div><p>You are given an integer array <code>deck</code>. There is a deck of cards where every card has a unique integer. The integer on the <code>i<sup>th</sup></code> card is <code>deck[i]</code>.</p>
 
 <p>You can order the deck in any order you want. Initially, all the cards start face down (unrevealed) in one deck.</p>
 
