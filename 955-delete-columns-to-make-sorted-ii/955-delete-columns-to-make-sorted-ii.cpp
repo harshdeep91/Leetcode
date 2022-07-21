@@ -20,3 +20,6 @@ public:
         return res;
     }
 };
+// if previous element > current element: remove that column immediately
+// if previous element < current element: no need to compare previous row and current row again
+// if previous element == current element: need to compare again.
