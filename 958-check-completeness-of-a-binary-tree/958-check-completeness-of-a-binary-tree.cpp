@@ -28,8 +28,8 @@ public:
                     while(!q.empty()&&q.front()==0)q.pop();
                     return q.empty();
                 }
-                root->left?q.push(root->left):q.push(0);
-                root->right?q.push(root->right):q.push(0);
+                q.push(root->left);
+                q.push(root->right);
             }
         }
         return 1;
