@@ -18,9 +18,6 @@ public:
         q.push(root);
         while(!q.empty())
         {
-            int size=q.size();
-            while(size--)
-            {
                 root=q.front();
                 q.pop();
                 if(root==0)//now every root must be zero then only complete tree
@@ -30,7 +27,6 @@ public:
                 }
                 q.push(root->left);
                 q.push(root->right);
-            }
         }
         return 1;
     }
