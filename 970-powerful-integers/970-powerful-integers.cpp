@@ -1,25 +1,15 @@
 class Solution {
 public:
-    vector<int> powerfulIntegers(int x, int y, int bound) {
-        set<int> s;
-        long long val=0,ff=1,ss=1;
-        for(int i=0;i<100;i++)
-        {
-            val=ff;
-            ss=1;
-            for(int j=0;j<100;j++)
-            {
-                val= ff+ss;
-                if(val<=bound)
-                    s.insert(val);
-                else break;
-                ss*=y;
+     vector<int> powerfulIntegers(int x, int y, int bound) {
+        unordered_set<int> s;
+        for (int i = 1; i <= bound; i *= x) {
+            for (int j = 1; i + j <= bound; j *= y) {
+                s.insert(i + j);
+                if (y == 1) break;
             }
-            if(ff>bound)break;
-            ff*=x;
+            if (x == 1) break;
+
         }
-        vector<int> ans;
-        for(auto x:s)ans.push_back(x);
-        return ans;
+        return vector<int>(s.begin(), s.end());
     }
 };
