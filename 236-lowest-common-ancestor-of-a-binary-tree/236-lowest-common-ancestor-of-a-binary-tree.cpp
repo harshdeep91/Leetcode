@@ -18,8 +18,6 @@ public:
             if(root==p||root==q||(x&&y))
                 return root;
                 return x?x:y;
-               
-            
         }
         return 0;
     }
