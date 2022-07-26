@@ -26,7 +26,7 @@ public:
             int extra= root->val-1+x+y;
             count+= abs(extra);
             return extra;
-            cout<<root->val<<" "<<extra<<" "<<x<<" "<<y<<" "<<count<<endl;
+            // cout<<root->val<<" "<<extra<<" "<<x<<" "<<y<<" "<<count<<endl;
         }
         return 0;
     }
@@ -35,9 +35,6 @@ public:
         //after that send the requirment to parents
         //if parent have more then 1 coin subtract extra coins
         //moving coins from top to bottom will take 1 unit per level
-        
-         // cout<<solve(root)<<" "<<count<<endl; 
-        // return abs(solve(root)-count);
         solve(root);
         return count;
     }
