@@ -16,7 +16,7 @@ public:
         int n=nums.size(),i=0,j=0,fsum=0,ssum=0,mx=0,k=0;
         vector<int> lf(n,0),rf(n,0),ls(n,0),rs(n,0);
         //from left store len s and f
-        cout<<f<<" "<<s<<endl;
+        // cout<<f<<" "<<s<<endl;
         while(j<n)
         {
             fsum+= nums[j];
