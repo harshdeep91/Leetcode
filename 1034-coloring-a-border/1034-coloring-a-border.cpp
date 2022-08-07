@@ -25,31 +25,10 @@ public:
                 q.pop();
                 vis[r][c]=1;
                 int boundary=0;
-                // for(auto x:tmp)
-                // {
-                //     for(auto y:x)cout<<y<<" ";
-                //     cout<<endl;
-                // }
-                if(check(r+1,c))
-                {
-                    boundary++;
-                    if(!vis[r+1][c])q.push({r+1,c});
-                }
-                if(check(r,c-1))
-                {
-                    boundary++;
-                    if(!vis[r][c-1])q.push({r,c-1});
-                }
-                if(check(r-1,c))
-                {
-                    boundary++;
-                    if(!vis[r-1][c])q.push({r-1,c});
-                }
-                if(check(r,c+1))
-                {
-                    boundary++;
-                    if(!vis[r][c+1])q.push({r,c+1});
-                }
+                if(check(r+1,c)&&++boundary&&!vis[r+1][c])q.push({r+1,c});
+                if(check(r-1,c)&&++boundary&&!vis[r-1][c])q.push({r-1,c});
+                if(check(r,c+1)&&++boundary&&!vis[r][c+1])q.push({r,c+1});
+                if(check(r,c-1)&&++boundary&&!vis[r][c-1])q.push({r,c-1});
                 if(boundary!=4)//means all four are not adjacent to same color
                     tmp[r][c]=color;
             }
