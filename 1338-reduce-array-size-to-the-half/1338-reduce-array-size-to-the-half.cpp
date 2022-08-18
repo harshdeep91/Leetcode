@@ -1,17 +1,20 @@
 class Solution {
 public:
     int minSetSize(vector<int>& arr) {
-        priority_queue<pair<int,int>> q;
-        unordered_map<int,int> m;
-        for(auto x:arr)m[x]++;
-        for(auto x:m)q.push({x.second,x.first});
-        int req=0,count=0;
-        while(!q.empty()&&req<arr.size()/2)
-        {
-            count++;
-            req+= q.top().first;
-            q.pop();
+        int n = arr.size();
+        unordered_map<int, int> cnt;
+        for (int x : arr) ++cnt[x];
+
+        vector<int> counting(n + 1);
+        for (auto [_, freq] : cnt) ++counting[freq];
+
+        int ans = 0, removed = 0, half = n / 2, freq = n;
+        while (removed < half) {
+            ans += 1;
+            while (counting[freq] == 0) --freq;
+            removed += freq;
+            --counting[freq];
         }
-        return count;
+        return ans;
     }
 };
