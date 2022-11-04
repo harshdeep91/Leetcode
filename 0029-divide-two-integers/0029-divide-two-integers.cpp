@@ -12,7 +12,7 @@ public:
             sum=sum+b;
             i++;
         }
-        if((dividend<0 || divisor<0)&&!(dividend<0&&divisor<0))
+        if((long long int)divisor*dividend<0)
         return -(i-1);
         else
         return i-1;
